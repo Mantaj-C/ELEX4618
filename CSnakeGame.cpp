@@ -1,7 +1,4 @@
-#include "stdafx.h"
-#include "cvui.h"
 #include "CSnakeGame.h"
-#include <vector>
 
 #define GAME_NAME "Mantaj Chauhan Snake Game"
 #define UNIT_STEP 10
