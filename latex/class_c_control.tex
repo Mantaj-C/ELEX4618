@@ -1,0 +1,203 @@
+\hypertarget{class_c_control}{}\doxysection{CControl Class Reference}
+\label{class_c_control}\index{CControl@{CControl}}
+
+
+A class to manage communication and control functionality using \mbox{\hyperlink{class_serial}{Serial}}.  
+
+
+
+
+{\ttfamily \#include $<$CControl.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_c_control_a6498500ff403327b5770a3acebed1d93}\label{class_c_control_a6498500ff403327b5770a3acebed1d93}} 
+\mbox{\hyperlink{class_c_control_a6498500ff403327b5770a3acebed1d93}{CControl}} ()
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{class_c_control}{CControl}}. Initializes the class object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_control_ab2ae420ef75b010c0c9078e597781105}\label{class_c_control_ab2ae420ef75b010c0c9078e597781105}} 
+\mbox{\hyperlink{class_c_control_ab2ae420ef75b010c0c9078e597781105}{$\sim$\+CControl}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \mbox{\hyperlink{class_c_control}{CControl}}. Cleans up resources associated with the class object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_control_a3d1384d0e1ee2a4a478a798b46457468}{init\+\_\+com}} (int comport)
+\begin{DoxyCompactList}\small\item\em Initializes the serial communication. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_c_control_a0bad8e51e54cb6f1e2a7b51d3a3940d3}{get\+\_\+data}} (int type, int channel, int \&result)
+\begin{DoxyCompactList}\small\item\em Retrieves data from the device. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_c_control_a13f557815616ef66a8f5dd4b725d8c32}{set\+\_\+data}} (int type, int channel, int val)
+\begin{DoxyCompactList}\small\item\em Sends data to the device. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_control_ad8566e114f1027d2f2716386c59f9299}\label{class_c_control_ad8566e114f1027d2f2716386c59f9299}} 
+void \mbox{\hyperlink{class_c_control_ad8566e114f1027d2f2716386c59f9299}{test\+\_\+digital}} ()
+\begin{DoxyCompactList}\small\item\em Tests digital inputs and outputs. A function to test digital buttons and LEDs. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_control_a80a1310e1afd898f7c1ee40efe5011a6}\label{class_c_control_a80a1310e1afd898f7c1ee40efe5011a6}} 
+void \mbox{\hyperlink{class_c_control_a80a1310e1afd898f7c1ee40efe5011a6}{test\+\_\+analog}} ()
+\begin{DoxyCompactList}\small\item\em Tests analog joystick movements. A function to test analog joystick movements. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_c_control_a0ab6c913589c3a6e95f9baebd53c4942}{get\+\_\+analog}} (int type, int channel)
+\begin{DoxyCompactList}\small\item\em Retrieves an analog value from a channel/pin. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_control_af579a49acc82acccfd2893b966fb4836}{test\+\_\+button}} ()
+\begin{DoxyCompactList}\small\item\em Tests button functionality by continuously reading its state. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_c_control_a6e3d63e8c1548378847d816dfecb3e51}{get\+\_\+button}} (int channel, int \&result)
+\begin{DoxyCompactList}\small\item\em Retrieves the current state of a button and applies software debouncing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_control_af7b299f2dbb6918970f91d7db2193792}\label{class_c_control_af7b299f2dbb6918970f91d7db2193792}} 
+void \mbox{\hyperlink{class_c_control_af7b299f2dbb6918970f91d7db2193792}{test\+\_\+servo}} ()
+\begin{DoxyCompactList}\small\item\em Tests servo motor functionality. A function to sweep through the range of the servo connected to the system. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_c_control_a88f4af0b9e46895f5727a0695e553a51}{valid\+\_\+char}} ()
+\begin{DoxyCompactList}\small\item\em Validates single-\/character input from the user. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_control_ae2aae253af181f49a14bccd5696a524e}\label{class_c_control_ae2aae253af181f49a14bccd5696a524e}} 
+void \mbox{\hyperlink{class_c_control_ae2aae253af181f49a14bccd5696a524e}{print\+\_\+menu}} ()
+\begin{DoxyCompactList}\small\item\em Prints a control menu for the user. Displays a list of available commands and options. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_control_a79c2db003e406b574b842bdcbea9a78e}\label{class_c_control_a79c2db003e406b574b842bdcbea9a78e}} 
+void \mbox{\hyperlink{class_c_control_a79c2db003e406b574b842bdcbea9a78e}{auto\+\_\+connect}} ()
+\begin{DoxyCompactList}\small\item\em Automatically connects to the first available COM port. Searches for available COM ports and establishes a connection. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_serial}{Serial}} \mbox{\hyperlink{class_c_control_aef87fbcfdcd323b1fdcf41be993e006c}{\+\_\+com}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class to manage communication and control functionality using \mbox{\hyperlink{class_serial}{Serial}}. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_control_a0ab6c913589c3a6e95f9baebd53c4942}\label{class_c_control_a0ab6c913589c3a6e95f9baebd53c4942}} 
+\index{CControl@{CControl}!get\_analog@{get\_analog}}
+\index{get\_analog@{get\_analog}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{get\_analog()}{get\_analog()}}
+{\footnotesize\ttfamily float CControl\+::get\+\_\+analog (\begin{DoxyParamCaption}\item[{int}]{type,  }\item[{int}]{channel }\end{DoxyParamCaption})}
+
+
+
+Retrieves an analog value from a channel/pin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The type of analog data to retrieve. \\
+\hline
+{\em channel} & The channel/pin to retrieve the analog value from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The analog value as a float percentage. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_control_a6e3d63e8c1548378847d816dfecb3e51}\label{class_c_control_a6e3d63e8c1548378847d816dfecb3e51}} 
+\index{CControl@{CControl}!get\_button@{get\_button}}
+\index{get\_button@{get\_button}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{get\_button()}{get\_button()}}
+{\footnotesize\ttfamily bool CControl\+::get\+\_\+button (\begin{DoxyParamCaption}\item[{int}]{channel,  }\item[{int \&}]{result }\end{DoxyParamCaption})}
+
+
+
+Retrieves the current state of a button and applies software debouncing. 
+
+Reads the state of the button connected to the specified channel, ensuring that bouncing caused by mechanical switches does not produce erroneous readings.
+
+
+\begin{DoxyParams}{Parameters}
+{\em channel} & The channel number associated with the button. \\
+\hline
+{\em result} & A reference to store the debounced state of the button\+:
+\begin{DoxyItemize}
+\item {\ttfamily 0} for pressed
+\item {\ttfamily 1} for not pressed
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the button state was successfully retrieved, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_control_a0bad8e51e54cb6f1e2a7b51d3a3940d3}\label{class_c_control_a0bad8e51e54cb6f1e2a7b51d3a3940d3}} 
+\index{CControl@{CControl}!get\_data@{get\_data}}
+\index{get\_data@{get\_data}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{get\_data()}{get\_data()}}
+{\footnotesize\ttfamily bool CControl\+::get\+\_\+data (\begin{DoxyParamCaption}\item[{int}]{type,  }\item[{int}]{channel,  }\item[{int \&}]{result }\end{DoxyParamCaption})}
+
+
+
+Retrieves data from the device. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The type of data to retrieve (Digital = 0, Analog = 1, Servo = 2). \\
+\hline
+{\em channel} & The channel/pin to retrieve data from. \\
+\hline
+{\em result} & Reference to store the retrieved data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if data retrieval was successful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_control_a3d1384d0e1ee2a4a478a798b46457468}\label{class_c_control_a3d1384d0e1ee2a4a478a798b46457468}} 
+\index{CControl@{CControl}!init\_com@{init\_com}}
+\index{init\_com@{init\_com}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{init\_com()}{init\_com()}}
+{\footnotesize\ttfamily void CControl\+::init\+\_\+com (\begin{DoxyParamCaption}\item[{int}]{comport }\end{DoxyParamCaption})}
+
+
+
+Initializes the serial communication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em comport} & The COM port number to establish communication. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_c_control_a13f557815616ef66a8f5dd4b725d8c32}\label{class_c_control_a13f557815616ef66a8f5dd4b725d8c32}} 
+\index{CControl@{CControl}!set\_data@{set\_data}}
+\index{set\_data@{set\_data}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{set\_data()}{set\_data()}}
+{\footnotesize\ttfamily bool CControl\+::set\+\_\+data (\begin{DoxyParamCaption}\item[{int}]{type,  }\item[{int}]{channel,  }\item[{int}]{val }\end{DoxyParamCaption})}
+
+
+
+Sends data to the device. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The type of data to set (Digital = 0, Analog = 1, Servo = 2). \\
+\hline
+{\em channel} & The channel/pin to send data to. \\
+\hline
+{\em val} & The value to set on the specified channel/pin. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if data was sent successfully, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_control_af579a49acc82acccfd2893b966fb4836}\label{class_c_control_af579a49acc82acccfd2893b966fb4836}} 
+\index{CControl@{CControl}!test\_button@{test\_button}}
+\index{test\_button@{test\_button}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{test\_button()}{test\_button()}}
+{\footnotesize\ttfamily void CControl\+::test\+\_\+button (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Tests button functionality by continuously reading its state. 
+
+Displays the button count in the console in real-\/time. This function is useful for verifying that the button is working correctly and to observe how it behaves under different conditions. \mbox{\Hypertarget{class_c_control_a88f4af0b9e46895f5727a0695e553a51}\label{class_c_control_a88f4af0b9e46895f5727a0695e553a51}} 
+\index{CControl@{CControl}!valid\_char@{valid\_char}}
+\index{valid\_char@{valid\_char}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{valid\_char()}{valid\_char()}}
+{\footnotesize\ttfamily string CControl\+::valid\+\_\+char (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Validates single-\/character input from the user. 
+
+\begin{DoxyReturn}{Returns}
+A valid single character as a string. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_c_control_aef87fbcfdcd323b1fdcf41be993e006c}\label{class_c_control_aef87fbcfdcd323b1fdcf41be993e006c}} 
+\index{CControl@{CControl}!\_com@{\_com}}
+\index{\_com@{\_com}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{\_com}{\_com}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_serial}{Serial}} CControl\+::\+\_\+com\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\hyperlink{class_serial}{Serial}} communication object for interfacing with hardware. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+CControl.\+h\item 
+CControl.\+cpp\end{DoxyCompactItemize}
