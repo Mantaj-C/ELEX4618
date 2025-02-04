@@ -50,8 +50,9 @@ void \mbox{\hyperlink{class_c_control_a79c2db003e406b574b842bdcbea9a78e}{auto\+\
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_c_control_aef87fbcfdcd323b1fdcf41be993e006c}\label{class_c_control_aef87fbcfdcd323b1fdcf41be993e006c}} 
 \mbox{\hyperlink{class_serial}{Serial}} \mbox{\hyperlink{class_c_control_aef87fbcfdcd323b1fdcf41be993e006c}{\+\_\+com}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em serial communication object \mbox{\hyperlink{class_serial}{Serial}} communication object for interfacing with hardware. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -96,8 +97,14 @@ Reads the state of the button connected to the specified channel, ensuring that 
 \hline
 {\em result} & A reference to store the debounced state of the button\+:
 \begin{DoxyItemize}
-\item {\ttfamily 0} for pressed
-\item {\ttfamily 1} for not pressed
+\item {\ttfamily 1} for pressed
+\item {\ttfamily 0} for not pressed 
+\end{DoxyItemize}\\
+\hline
+{\em flag} & A reference to store the previous state of the button\+:
+\begin{DoxyItemize}
+\item {\ttfamily true} for pressed
+\item {\ttfamily 0} for not pressed
 \end{DoxyItemize}\\
 \hline
 \end{DoxyParams}
@@ -173,7 +180,7 @@ True if data was sent successfully, false otherwise.
 
 Tests button functionality by continuously reading its state. 
 
-Displays the button count in the console in real-\/time. This function is useful for verifying that the button is working correctly and to observe how it behaves under different conditions. \mbox{\Hypertarget{class_c_control_a88f4af0b9e46895f5727a0695e553a51}\label{class_c_control_a88f4af0b9e46895f5727a0695e553a51}} 
+This function is useful for verifying that the button is working correctly and to observe how it behaves under different conditions. \mbox{\Hypertarget{class_c_control_a88f4af0b9e46895f5727a0695e553a51}\label{class_c_control_a88f4af0b9e46895f5727a0695e553a51}} 
 \index{CControl@{CControl}!valid\_char@{valid\_char}}
 \index{valid\_char@{valid\_char}!CControl@{CControl}}
 \doxysubsubsection{\texorpdfstring{valid\_char()}{valid\_char()}}
@@ -187,15 +194,6 @@ Validates single-\/character input from the user.
 A valid single character as a string. 
 \end{DoxyReturn}
 
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{class_c_control_aef87fbcfdcd323b1fdcf41be993e006c}\label{class_c_control_aef87fbcfdcd323b1fdcf41be993e006c}} 
-\index{CControl@{CControl}!\_com@{\_com}}
-\index{\_com@{\_com}!CControl@{CControl}}
-\doxysubsubsection{\texorpdfstring{\_com}{\_com}}
-{\footnotesize\ttfamily \mbox{\hyperlink{class_serial}{Serial}} CControl\+::\+\_\+com\hspace{0.3cm}{\ttfamily [private]}}
-
-\mbox{\hyperlink{class_serial}{Serial}} communication object for interfacing with hardware. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

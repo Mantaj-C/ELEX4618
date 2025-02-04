@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['print_5fmenu_48',['print_menu',['../class_c_control.html#ae2aae253af181f49a14bccd5696a524e',1,'CControl']]]
+  ['init_5fcom_92',['init_com',['../class_c_control.html#a3d1384d0e1ee2a4a478a798b46457468',1,'CControl']]]
 ];

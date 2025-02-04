@@ -7,7 +7,6 @@
 
 #include "stdafx.h"
 #include "CBase4618.h"
-#include "cvui.h"
 #include <vector>
 
  /**
@@ -92,6 +91,11 @@ private:
     * @brief The previous movement direction of the snake.
     */
    cv::Point _prev_direction;
+
+   float _FPS;
+   int _frameCount;
+   double _lastTime;
+   bool _musicplaying;
 
 public:
    /**

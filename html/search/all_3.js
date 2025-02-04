@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['get_5fanalog_12',['get_analog',['../class_c_control.html#a0ab6c913589c3a6e95f9baebd53c4942',1,'CControl']]],
-  ['get_5fbutton_13',['get_button',['../class_c_control.html#a6e3d63e8c1548378847d816dfecb3e51',1,'CControl']]],
-  ['get_5fdata_14',['get_data',['../class_c_control.html#a0bad8e51e54cb6f1e2a7b51d3a3940d3',1,'CControl']]]
+  ['draw_33',['draw',['../class_c_base4618.html#a0987bf28e9beed4753d3628fcddc3315',1,'CBase4618::draw()'],['../class_c_snake_game.html#a27f9872ceec57da7f7dd77794a28360b',1,'CSnakeGame::draw()']]]
 ];
