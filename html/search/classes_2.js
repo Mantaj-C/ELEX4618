@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['serial_40',['Serial',['../class_serial.html',1,'']]]
+  ['products_75',['Products',['../struct_products.html',1,'']]]
 ];

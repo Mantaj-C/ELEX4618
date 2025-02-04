@@ -1,11 +1,16 @@
+#include "stdafx.h"
+#include "cvui.h"
 #include "CSnakeGame.h"
+#include <windows.h>
+#include <mmsystem.h>
+#include <vector>
 
 #define GAME_NAME "Mantaj Chauhan Snake Game"
 #define UNIT_STEP 10
 #define STARTING_LENGTH 200
 #define JOYSTICK_X 2
 #define JOYSTICK_Y 26
-#define SWITCH_1 31
+#define SWITCH_1 33
 #define SWITCH_2 32
 #define RGBLED_RED_PIN 39
 #define JOYSTICK_UPPER_THRESHOLD 90.0
@@ -13,17 +18,22 @@
 #define RGBLED_RED_PIN 39
 #define RGBLED_GREEN_PIN 38
 #define RGBLED_BLUE_PIN 37
+#define BUZZER 40
 
 enum { DIGITAL = 0, ANALOG, SERVO };
 
 CSnakeGame::CSnakeGame(cv::Size size) : _size(size), _reset(false), _color_flag(true),
-   _color_index(0), _joystick_position(0,0), _button_pressed(false){
+   _color_index(0), _joystick_position(0,0), _button_pressed(false), _musicplaying(false){
    _colorArray.push_back({ "Red", cv::Scalar(0,0,255), RGBLED_RED_PIN });
    _colorArray.push_back({ "Green", cv::Scalar(0,255,0), RGBLED_GREEN_PIN });
    _colorArray.push_back({ "Blue", cv::Scalar(255,0,0), RGBLED_BLUE_PIN });
-   _colorArray.push_back({ "Rainbow", cv::Scalar(rand() % 256,rand() % 256,rand() % 256), RGBLED_BLUE_PIN });
-   _prev_direction = cv::Point(0, UNIT_STEP);
+   _colorArray.push_back({ "Rainbow", cv::Scalar(rand() % 256,rand() % 256,rand() % 256), BUZZER });
+   _prev_direction = cv::Point(0, -UNIT_STEP);
    _prev_color = _colorArray.size() - 1;
+   _FPS = 0.0f;
+   _frameCount = 0;
+   _lastTime = cv::getTickCount() / cv::getTickFrequency();
+   mciSendString("open \"C:\\Users\\manta\\Downloads\\ELEX4618\\ELEX4618-Template-master\\Music.mp3\" type mpegvideo alias myMusic", NULL, 0, NULL); //ChatGPT
 
    cv::Point start_position(_size.width / 2, _size.height / 2);
    for (int i = 0; i < STARTING_LENGTH / UNIT_STEP; ++i) {
@@ -38,6 +48,8 @@ CSnakeGame::~CSnakeGame() {
    getControl().set_data(DIGITAL, RGBLED_BLUE_PIN, 0);
    getControl().set_data(DIGITAL, RGBLED_RED_PIN, 0);
    getControl().set_data(DIGITAL, RGBLED_GREEN_PIN, 0);
+   mciSendString("stop myMusic", NULL, 0, NULL); //ChatGPT
+   mciSendString("close myMusic", NULL, 0, NULL); //ChatGPT
 
    }
 
@@ -60,6 +72,14 @@ void CSnakeGame::gpio() {
    }
 
 void CSnakeGame::update() {
+   double currentTime = cv::getTickCount() / cv::getTickFrequency();
+
+   if (currentTime - _lastTime >= 1.0) {
+      _FPS = _frameCount / (currentTime - _lastTime);
+      _frameCount = 0;
+      _lastTime = currentTime;
+      }
+
    _colorArray[3]._color_scalar = cv::Scalar(rand() % 256, rand()* rand() % 256, rand()* rand()* rand() % 256);
    
    if (_joystick_position.x >= JOYSTICK_UPPER_THRESHOLD && _prev_direction != cv::Point(-UNIT_STEP, 0) 
@@ -99,7 +119,7 @@ void CSnakeGame::update() {
    
    if (_reset) {
       std::cout << "game reset" << std::endl;
-      _prev_direction = cv::Point(0, UNIT_STEP);
+      _prev_direction = cv::Point(0, -UNIT_STEP);
       _prev_color = _color_index;
       _snake_position.clear();
       cv::Point start_position(_size.width / 2, _size.height / 2);
@@ -110,14 +130,24 @@ void CSnakeGame::update() {
       _color_index = 0;
       _color_flag = true;
       }
+
+   if (_color_index == _colorArray.size() - 1 && !_musicplaying) {
+      mciSendString("play myMusic repeat", NULL, 0, NULL); //ChatGPT
+      _musicplaying = true;
+      }
+   else if (_color_index != _colorArray.size() - 1 && _musicplaying) {
+      mciSendString("stop myMusic", NULL, 0, NULL); //ChatGPT
+      _musicplaying = false;
+      }
    }
 
 void CSnakeGame::draw() {
+   _frameCount++;
    setCanvas(cv::Mat::zeros(_size, CV_8UC3));
    cv::Mat& canvas = getCanvas();
    ;
    cvui::window(canvas, 10, 10, 150, 90, "Snake (" + std::to_string(_snake_position.front().x) 
-      + "," + std::to_string(_snake_position.front().y) + ")");
+      + "," + std::to_string(_snake_position.front().y) + ")" + " (FPS = " + std::to_string(std::round(_FPS * 100) / 100) + ")");
    cvui::text(canvas, 20, 40, "Color: " + _colorArray[_color_index]._color);
    if (cvui::button(canvas, 20, 70, "Reset")) {
       _reset = true;

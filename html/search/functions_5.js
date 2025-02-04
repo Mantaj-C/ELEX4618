@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['read_49',['read',['../class_serial.html#a8266889eb5bfa7ef8b53595c5482133d',1,'Serial']]]
+  ['print_5fmenu_93',['print_menu',['../class_c_control.html#ae2aae253af181f49a14bccd5696a524e',1,'CControl']]]
 ];

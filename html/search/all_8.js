@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['test_5fanalog_21',['test_analog',['../class_c_control.html#a80a1310e1afd898f7c1ee40efe5011a6',1,'CControl']]],
-  ['test_5fbutton_22',['test_button',['../class_c_control.html#af579a49acc82acccfd2893b966fb4836',1,'CControl']]],
-  ['test_5fdigital_23',['test_digital',['../class_c_control.html#ad8566e114f1027d2f2716386c59f9299',1,'CControl']]],
-  ['test_5fservo_24',['test_servo',['../class_c_control.html#af7b299f2dbb6918970f91d7db2193792',1,'CControl']]],
-  ['trackbarparams_25',['TrackbarParams',['../structcvui_1_1internal_1_1_trackbar_params.html',1,'cvui::internal']]]
+  ['serial_46',['Serial',['../class_serial.html',1,'']]],
+  ['set_5fdata_47',['set_data',['../class_c_control.html#a13f557815616ef66a8f5dd4b725d8c32',1,'CControl']]],
+  ['setcanvas_48',['setCanvas',['../class_c_base4618.html#a5bb9d76d84a4ec72c0ffa0f65255c395',1,'CBase4618']]],
+  ['setcontrol_49',['setControl',['../class_c_base4618.html#a7bbe1735dbebbb642aa2cce6d15d5ca7',1,'CBase4618']]],
+  ['setexit_50',['setExit',['../class_c_base4618.html#aad1bc9cc5223796607f5b8736394dcb3',1,'CBase4618']]]
 ];

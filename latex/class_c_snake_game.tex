@@ -1,0 +1,117 @@
+\hypertarget{class_c_snake_game}{}\doxysection{CSnake\+Game Class Reference}
+\label{class_c_snake_game}\index{CSnakeGame@{CSnakeGame}}
+
+
+A class representing the Snake game, extending the \mbox{\hyperlink{class_c_base4618}{CBase4618}} class.  
+
+
+
+
+{\ttfamily \#include $<$CSnake\+Game.\+h$>$}
+
+Inheritance diagram for CSnake\+Game\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_c_snake_game}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_c_snake_game_1_1__color__structure}{\+\_\+color\+\_\+structure}}
+\begin{DoxyCompactList}\small\item\em Structure to store color information for the game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_snake_game_a75bdb1d761200172ec2115fd95575a4a}{CSnake\+Game}} (cv\+::\+Size size)
+\begin{DoxyCompactList}\small\item\em Constructs the Snake game with a specified canvas size. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_a96364879bacad0be7c62ea148ef87349}\label{class_c_snake_game_a96364879bacad0be7c62ea148ef87349}} 
+\mbox{\hyperlink{class_c_snake_game_a96364879bacad0be7c62ea148ef87349}{$\sim$\+CSnake\+Game}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \mbox{\hyperlink{class_c_snake_game}{CSnake\+Game}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_snake_game_a2df557e749de3bbde3e1a65115fb7f18}{gpio}} () override
+\begin{DoxyCompactList}\small\item\em Handles GPIO operations such as button presses and LED updates. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_a0ffed1f4807355249acb22415a890440}\label{class_c_snake_game_a0ffed1f4807355249acb22415a890440}} 
+void \mbox{\hyperlink{class_c_snake_game_a0ffed1f4807355249acb22415a890440}{update}} () override
+\begin{DoxyCompactList}\small\item\em Updates the game state, including snake movement and color changes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_a27f9872ceec57da7f7dd77794a28360b}\label{class_c_snake_game_a27f9872ceec57da7f7dd77794a28360b}} 
+void \mbox{\hyperlink{class_c_snake_game_a27f9872ceec57da7f7dd77794a28360b}{draw}} () override
+\begin{DoxyCompactList}\small\item\em Renders the game graphics, drawing the snake and user interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_c_snake_game_a89a2985eec9c2b9685bfbeb527517b5e}\label{class_c_snake_game_a89a2985eec9c2b9685bfbeb527517b5e}} 
+cv\+::\+Size \mbox{\hyperlink{class_c_snake_game_a89a2985eec9c2b9685bfbeb527517b5e}{\+\_\+size}}
+\begin{DoxyCompactList}\small\item\em The size of the game canvas. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_ada4b939acc899d63de7dd0d1bd9a1228}\label{class_c_snake_game_ada4b939acc899d63de7dd0d1bd9a1228}} 
+bool \mbox{\hyperlink{class_c_snake_game_ada4b939acc899d63de7dd0d1bd9a1228}{\+\_\+reset}}
+\begin{DoxyCompactList}\small\item\em Flag indicating whether the game should reset. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_ab2017ed3657f992352f2eb4335f5a94a}\label{class_c_snake_game_ab2017ed3657f992352f2eb4335f5a94a}} 
+int \mbox{\hyperlink{class_c_snake_game_ab2017ed3657f992352f2eb4335f5a94a}{\+\_\+color\+\_\+index}}
+\begin{DoxyCompactList}\small\item\em Index tracking the current selected color. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_a1bedcf79dbacfaf68cface5fb396c4d2}\label{class_c_snake_game_a1bedcf79dbacfaf68cface5fb396c4d2}} 
+std\+::vector$<$ \mbox{\hyperlink{struct_c_snake_game_1_1__color__structure}{\+\_\+color\+\_\+structure}} $>$ \mbox{\hyperlink{class_c_snake_game_a1bedcf79dbacfaf68cface5fb396c4d2}{\+\_\+color\+Array}}
+\begin{DoxyCompactList}\small\item\em A list of available colors and their associated LED pins. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_a6f8a233b0cc10ea22feecfa7dbf69f76}\label{class_c_snake_game_a6f8a233b0cc10ea22feecfa7dbf69f76}} 
+std\+::deque$<$ cv\+::\+Point $>$ \mbox{\hyperlink{class_c_snake_game_a6f8a233b0cc10ea22feecfa7dbf69f76}{\+\_\+snake\+\_\+position}}
+\begin{DoxyCompactList}\small\item\em The deque storing the positions of the snake\textquotesingle{}s body. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_a588f7e7f7b48a65d91ad24e2ff08e499}\label{class_c_snake_game_a588f7e7f7b48a65d91ad24e2ff08e499}} 
+cv\+::\+Point2f \mbox{\hyperlink{class_c_snake_game_a588f7e7f7b48a65d91ad24e2ff08e499}{\+\_\+joystick\+\_\+position}}
+\begin{DoxyCompactList}\small\item\em The joystick\textquotesingle{}s last known position for controlling movement. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_a8672e21d52e7e36a400b9dc9e74cd5b2}\label{class_c_snake_game_a8672e21d52e7e36a400b9dc9e74cd5b2}} 
+int \mbox{\hyperlink{class_c_snake_game_a8672e21d52e7e36a400b9dc9e74cd5b2}{\+\_\+prev\+\_\+color}}
+\begin{DoxyCompactList}\small\item\em Stores the previous color before a color change occurs. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_afc738001e8ec3624806f230a02d0c21d}\label{class_c_snake_game_afc738001e8ec3624806f230a02d0c21d}} 
+bool \mbox{\hyperlink{class_c_snake_game_afc738001e8ec3624806f230a02d0c21d}{\+\_\+button\+\_\+pressed}}
+\begin{DoxyCompactList}\small\item\em Tracks whether the button is currently pressed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_ac8432f0a5b86035c92abb402469df33b}\label{class_c_snake_game_ac8432f0a5b86035c92abb402469df33b}} 
+bool \mbox{\hyperlink{class_c_snake_game_ac8432f0a5b86035c92abb402469df33b}{\+\_\+color\+\_\+flag}}
+\begin{DoxyCompactList}\small\item\em Flag indicating if the color should be updated. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_a7218ac434471243233e30d781d3fd5dc}\label{class_c_snake_game_a7218ac434471243233e30d781d3fd5dc}} 
+cv\+::\+Point \mbox{\hyperlink{class_c_snake_game_a7218ac434471243233e30d781d3fd5dc}{\+\_\+prev\+\_\+direction}}
+\begin{DoxyCompactList}\small\item\em The previous movement direction of the snake. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class representing the Snake game, extending the \mbox{\hyperlink{class_c_base4618}{CBase4618}} class. 
+
+This class handles the game logic, including rendering, user input (via GPIO and joystick), and LED color synchronization. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_c_snake_game_a75bdb1d761200172ec2115fd95575a4a}\label{class_c_snake_game_a75bdb1d761200172ec2115fd95575a4a}} 
+\index{CSnakeGame@{CSnakeGame}!CSnakeGame@{CSnakeGame}}
+\index{CSnakeGame@{CSnakeGame}!CSnakeGame@{CSnakeGame}}
+\doxysubsubsection{\texorpdfstring{CSnakeGame()}{CSnakeGame()}}
+{\footnotesize\ttfamily CSnake\+Game\+::\+CSnake\+Game (\begin{DoxyParamCaption}\item[{cv\+::\+Size}]{size }\end{DoxyParamCaption})}
+
+
+
+Constructs the Snake game with a specified canvas size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & The size of the game canvas. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_snake_game_a2df557e749de3bbde3e1a65115fb7f18}\label{class_c_snake_game_a2df557e749de3bbde3e1a65115fb7f18}} 
+\index{CSnakeGame@{CSnakeGame}!gpio@{gpio}}
+\index{gpio@{gpio}!CSnakeGame@{CSnakeGame}}
+\doxysubsubsection{\texorpdfstring{gpio()}{gpio()}}
+{\footnotesize\ttfamily void CSnake\+Game\+::gpio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Handles GPIO operations such as button presses and LED updates. 
+
+This function is responsible for processing user input and syncing LED colors. 
+
+Implements \mbox{\hyperlink{class_c_base4618_a8d55ae2f3ce30021775565dc895b8b12}{CBase4618}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_c_snake_game_8h}{CSnake\+Game.\+h}}\item 
+CSnake\+Game.\+cpp\end{DoxyCompactItemize}

@@ -30,8 +30,8 @@
 #include "Serial.h" 
 
 #define CANVAS_NAME "Display Image"
-#define SNAKEGAME_CANVAS_WIDTH 500
-#define SNAKEGAME_CANVAS_HEIGHT 500
+#define SNAKEGAME_CANVAS_WIDTH 1000
+#define SNAKEGAME_CANVAS_HEIGHT 800
 
 ////////////////////////////////////////////////////////////////
 // Can be used as a replacement for cv::waitKey() to display cv::imshow() images, Windows Only
@@ -499,10 +499,10 @@ void print_menu()
 	std::cout << "\n* ELEX4618 Template Project";
 	std::cout << "\n***********************************";
   std::cout << "\n(1) Lab 1 - User Input";
-  std::cout << "\n(2) Lab 2 - Grading";
+  std::cout << "\n(2) Lab 2 - Grocery Store";
   std::cout << "\n(3) Lab 3 - Embedded Control";
-  std::cout << "\n(4) Lab 4 - Etch-A-Sketch";
-  std::cout << "\n(5) Lab 5 - Pong";
+  std::cout << "\n(4) Lab 4 - Snake Game";
+  std::cout << "\n(5) Lab 5 - Snake Game V2";
   std::cout << "\n(6) Lab 6 - Classic Arcade Game";
   std::cout << "\n(7) Lab 7 - Linux Port";
   std::cout << "\n(8) Lab 8 - Sorting";

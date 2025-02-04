@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "CControl.h"
 #include "CBase4618.h"
+#include "CControl.h"
 
 CBase4618::CBase4618() : _exit(false) {
    }
