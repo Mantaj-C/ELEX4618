@@ -25,6 +25,8 @@
 #include "CControl.h"
 #include "CBase4618.h"
 #include "CSnakeGame.h"
+#include "CSnakeGameV2.h"
+
 
 // Must include Windows.h after Winsock2.h, so Serial must be included after Client/Server
 #include "Serial.h" 
@@ -484,6 +486,8 @@ void lab4()
 ////////////////////////////////////////////////////////////////
 void lab5()
 {
+   CSnakeGameV2 snakegame(cv::Size(SNAKEGAME_CANVAS_WIDTH, SNAKEGAME_CANVAS_HEIGHT));
+   snakegame.run();
 }
 
 ////////////////////////////////////////////////////////////////

@@ -66,7 +66,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\manta\Downloads\ELEX4618\opencv\x64\vc17\lib</AdditionalLibraryDirectories>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);winmm.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -94,6 +93,7 @@
     <ClInclude Include="CGrocery.h" />
     <ClInclude Include="CProduct.h" />
     <ClInclude Include="CSnakeGame.h" />
+    <ClInclude Include="CSnakeGameV2.h" />
     <ClInclude Include="cvui.h" />
     <ClInclude Include="Serial.h" />
     <ClInclude Include="server.h" />
@@ -106,6 +106,7 @@
     <ClCompile Include="CGrocery.cpp" />
     <ClCompile Include="CProduct.cpp" />
     <ClCompile Include="CSnakeGame.cpp" />
+    <ClCompile Include="CSnakeGameV2.cpp" />
     <ClCompile Include="Serial.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="stdafx.cpp">
