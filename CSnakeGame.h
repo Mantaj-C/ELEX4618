@@ -92,9 +92,25 @@ private:
     */
    cv::Point _prev_direction;
 
+
+   /**
+    * @brief Frame rate of the game in frames per second.
+    */
    float _FPS;
+
+   /**
+    * @brief Counter for the number of frames rendered.
+    */
    int _frameCount;
+
+   /**
+    * @brief Timestamp of the last FPS update.
+    */
    double _lastTime;
+
+   /**
+    * @brief Flag indicating whether music is currently playing.
+    */
    bool _musicplaying;
 
 public:

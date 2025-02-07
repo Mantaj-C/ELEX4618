@@ -90,12 +90,22 @@ private:
    /**
     * @brief The previous movement direction of the snake.
     */
-   cv::Point _prev_direction;
+   cv::Point _direction;
 
    float _FPS;
    int _frameCount;
-   double _lastTime;
+   double _lastTime_frame;
+   double _lastTime_apple;
    bool _musicplaying;
+   int _step_size;
+   int _snake_speed;
+   int _snake_length;
+   bool _apple_eaten;
+   cv::Point _apple_position;
+   bool _apple_inplay;
+   int _score;
+   cv::Rect _apple_hit_box;
+   cv::Rect _snake_hit_box;
 
 public:
    /**
@@ -125,4 +135,12 @@ public:
     * @brief Renders the game graphics, drawing the snake and user interface.
     */
    void draw() override;
+
+   void reset();
+
+   void game_over();
+
+   void apple_spawn();
+
+   void snake_vector_logic(bool apple_flag);
    };

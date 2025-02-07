@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['test_5fanalog_100',['test_analog',['../class_c_control.html#a80a1310e1afd898f7c1ee40efe5011a6',1,'CControl']]],
-  ['test_5fbutton_101',['test_button',['../class_c_control.html#af579a49acc82acccfd2893b966fb4836',1,'CControl']]],
-  ['test_5fdigital_102',['test_digital',['../class_c_control.html#ad8566e114f1027d2f2716386c59f9299',1,'CControl']]],
-  ['test_5fservo_103',['test_servo',['../class_c_control.html#af7b299f2dbb6918970f91d7db2193792',1,'CControl']]]
+  ['test_5fanalog_109',['test_analog',['../class_c_control.html#a80a1310e1afd898f7c1ee40efe5011a6',1,'CControl']]],
+  ['test_5fbutton_110',['test_button',['../class_c_control.html#af579a49acc82acccfd2893b966fb4836',1,'CControl']]],
+  ['test_5fdigital_111',['test_digital',['../class_c_control.html#ad8566e114f1027d2f2716386c59f9299',1,'CControl']]],
+  ['test_5fservo_112',['test_servo',['../class_c_control.html#af7b299f2dbb6918970f91d7db2193792',1,'CControl']]]
 ];
