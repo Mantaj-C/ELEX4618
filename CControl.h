@@ -94,9 +94,6 @@ public:
     * @param result A reference to store the debounced state of the button:
     *               - `1` for pressed
     *               - `0` for not pressed
-    * @param flag A reference to store the previous state of the button:
-    *               - `true` for pressed
-    *               - `0` for not pressed
     *
     * @return True if the button state was successfully retrieved, false otherwise.
     */

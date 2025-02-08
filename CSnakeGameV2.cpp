@@ -4,11 +4,14 @@
 #include <windows.h>
 #include <mmsystem.h>
 #include <vector>
+#include <chrono>
+#include <thread>
 
 #define GAME_NAME "Mantaj Chauhan Snake Game"
 #define SNAKE_THICKNESS 10
 #define SCORE_INCREMENT 1
 #define APPLE_RADIUS 10
+#define MAX_FPS 30
 #define STARTING_LENGTH 100
 #define MAX_STEP 20
 #define JOYSTICK_X 2
@@ -71,6 +74,7 @@ void CSnakeGameV2::gpio() {
    }
 
 void CSnakeGameV2::update() {
+   auto update_start = std::chrono::steady_clock::now();
    if (_reset) {
       reset();
       }
@@ -83,23 +87,24 @@ void CSnakeGameV2::update() {
       _lastTime_frame = currentTime;
       }
 
-   if (currentTime - _lastTime_apple >= 5.0 && !_apple_inplay) {
+   if (currentTime - _lastTime_apple >= 5.0) {
+      _lastTime_apple = currentTime;
       apple_spawn();
       }
 
    _snake_hit_box = cv::Rect(_snake_position.front().x, _snake_position.front().y, SNAKE_THICKNESS, SNAKE_THICKNESS);
-   _apple_hit_box = cv::Rect(_apple_position.x - APPLE_RADIUS, _apple_position.y - APPLE_RADIUS, APPLE_RADIUS*2, APPLE_RADIUS*2);
-
-   if ((_snake_hit_box & _apple_hit_box).area() > 0 && _apple_inplay) {
-      _apple_eaten = true;
+  
+   for (int i = 0; i < _apple_position.size(); i++) {
+      if ((_snake_hit_box & _apple_position[i]).area() > 0) {
+        _apple_eaten = true;
+        _apple_position.erase(_apple_position.begin() + i);
+        }
       }
 
    if (_apple_eaten) {
-      _lastTime_apple = currentTime;
       _score = _score + SCORE_INCREMENT;
       snake_vector_logic(_apple_eaten);
       _apple_eaten = false;
-      _apple_inplay = false;
       }
 
    cv::Point head = _snake_position.front();
@@ -126,16 +131,16 @@ void CSnakeGameV2::update() {
       _direction = cv::Point(0, 1);
       }
 
-   snake_vector_logic(_apple_eaten);
 
-   for (int i = 2; i * SNAKE_THICKNESS < _snake_length; i = i + 2) {
-      if ((_snake_hit_box & cv::Rect(_snake_position[i* SNAKE_THICKNESS].x, _snake_position[i* SNAKE_THICKNESS].y, SNAKE_THICKNESS, SNAKE_THICKNESS)).area() > 0) {
+   for (int i = 10; i < _snake_position.size(); i = i + 10) {
+      if ((_snake_hit_box & cv::Rect(_snake_position[i].x, _snake_position[i].y, SNAKE_THICKNESS, SNAKE_THICKNESS)).area() > 0) {
          game_over();
          }
       }
    if (head.x < 0 || head.x >= _size.width || head.y < 0 || head.y >= _size.height) {
       game_over();
       }
+   snake_vector_logic(_apple_eaten);
 
    if (_button_pressed) {
       _prev_color = _color_index;
@@ -157,9 +162,13 @@ void CSnakeGameV2::update() {
       mciSendString("stop myMusic", NULL, 0, NULL); //ChatGPT
       _musicplaying = false;
       }
+   auto update_end = std::chrono::steady_clock::now();
+   auto update_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(update_end - update_start);
+   std::this_thread::sleep_for(std::chrono::milliseconds(std::chrono::milliseconds(_snake_speed) - update_elapsed));
    }
 
 void CSnakeGameV2::draw() {
+   auto draw_start = std::chrono::steady_clock::now();
    _frameCount++;
    setCanvas(cv::Mat::zeros(_size, CV_8UC3));
    cv::Mat& canvas = getCanvas();
@@ -181,18 +190,22 @@ void CSnakeGameV2::draw() {
       setExit(true);
       }
    /////////////////////////////////////////////////ChatGPT
-   for (const auto& segment : _snake_position) {
+   for (int i = 0; i < _snake_position.size(); i= i + 5) {
       cv::rectangle(canvas,
-         cv::Rect(segment.x, segment.y, SNAKE_THICKNESS, SNAKE_THICKNESS),
+         cv::Rect(_snake_position[i].x, _snake_position[i].y, SNAKE_THICKNESS, SNAKE_THICKNESS),
          _colorArray[_color_index]._color_scalar,
          cv::FILLED);
       }
    ///////////////////////////////////////////////////
-   if (_apple_inplay) {
-      cv::circle(canvas, _apple_position, APPLE_RADIUS, _colorArray[3]._color_scalar, cv::FILLED);
+   for (int i = 0; i < _apple_position.size(); i++) {
+   cv::circle(canvas, cv::Point(_apple_position[i].x + APPLE_RADIUS, _apple_position[i].y + APPLE_RADIUS),
+      APPLE_RADIUS, _colorArray[3]._color_scalar, cv::FILLED);
       }
    cvui::update();
    cv::imshow(GAME_NAME, canvas);
+   auto draw_end = std::chrono::steady_clock::now();
+   auto draw_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(draw_end - draw_start);
+   std::this_thread::sleep_for(std::chrono::milliseconds(std::chrono::milliseconds(1000/MAX_FPS)-draw_elapsed));
    }
 
 void CSnakeGameV2::snake_vector_logic(bool apple_flag) {
@@ -211,30 +224,30 @@ void CSnakeGameV2::snake_vector_logic(bool apple_flag) {
 }
 
 void CSnakeGameV2::apple_spawn() {
-   bool apple_insnake = false;
-   do {
+   bool apple_insnake = true;
+   cv::Rect apple;
+   while(apple_insnake) {
       apple_insnake = false;
-      _apple_position.x = rand() % _size.width;
-      _apple_position.y = rand() % _size.height;
+      apple = cv::Rect(rand() % _size.width, rand() % _size.height,APPLE_RADIUS*2,APPLE_RADIUS*2);
       for (int i = 0; i < _snake_position.size(); i = i + 5) {
-         if (_apple_position == _snake_position[i]) {
+         if ((apple & cv::Rect(_snake_position[i].x, _snake_position[i].y, SNAKE_THICKNESS, SNAKE_THICKNESS)).area() > 0) {
             apple_insnake = true;
             break;
             }
          }
-      } while (apple_insnake);
-         _apple_inplay = true;
+      }
+      _apple_position.push_back(apple);
    }
 
 void CSnakeGameV2::reset() {
       std::cout << "game reset" << std::endl;
       _apple_eaten = false;
-      _apple_inplay = false;
       _snake_length = STARTING_LENGTH;
       _score = 0;
       _direction = cv::Point(0, -1);
       _step_size = 10;
       _snake_position.clear();
+      _apple_position.clear();
       cv::Point start_position(_size.width / 2, _size.height / 2);
       for (int i = 0; i < STARTING_LENGTH; ++i) {
          _snake_position.push_back(cv::Point(start_position.x, start_position.y + i));

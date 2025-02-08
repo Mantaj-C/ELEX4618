@@ -101,10 +101,8 @@ private:
    int _snake_speed;
    int _snake_length;
    bool _apple_eaten;
-   cv::Point _apple_position;
-   bool _apple_inplay;
+   std::deque<cv::Rect> _apple_position;
    int _score;
-   cv::Rect _apple_hit_box;
    cv::Rect _snake_hit_box;
 
 public:
