@@ -104,6 +104,7 @@ private:
    std::deque<cv::Rect> _apple_position;
    int _score;
    cv::Rect _snake_hit_box;
+   bool _game_over;
 
 public:
    /**
@@ -135,8 +136,6 @@ public:
    void draw() override;
 
    void reset();
-
-   void game_over();
 
    void apple_spawn();
 

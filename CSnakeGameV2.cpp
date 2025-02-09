@@ -30,7 +30,7 @@ enum { DIGITAL = 0, ANALOG, SERVO };
 
 CSnakeGameV2::CSnakeGameV2(cv::Size size) : _size(size), _reset(true), _color_flag(true),
 _color_index(0), _joystick_position(0, 0), _button_pressed(false), _musicplaying(false), 
-   _step_size(10), _snake_speed(100){
+   _step_size(10), _snake_speed(100), _game_over(false){
    _colorArray.push_back({ "Red", cv::Scalar(0,0,255), RGBLED_RED_PIN });
    _colorArray.push_back({ "Green", cv::Scalar(0,255,0), RGBLED_GREEN_PIN });
    _colorArray.push_back({ "Blue", cv::Scalar(255,0,0), RGBLED_BLUE_PIN });
@@ -132,13 +132,15 @@ void CSnakeGameV2::update() {
       }
 
 
-   for (int i = 10; i < _snake_position.size(); i = i + 10) {
-      if ((_snake_hit_box & cv::Rect(_snake_position[i].x, _snake_position[i].y, SNAKE_THICKNESS, SNAKE_THICKNESS)).area() > 0) {
-         game_over();
+   for (int i = 20; i < _snake_position.size(); i = i + 10) {
+      if ((_snake_hit_box & cv::Rect(_snake_position[i].x, _snake_position[i].y, SNAKE_THICKNESS, SNAKE_THICKNESS)).area() > 0 && !_game_over) {
+         _game_over = true;
+         std::cout << "game over" << std::endl;
          }
       }
-   if (head.x < 0 || head.x >= _size.width || head.y < 0 || head.y >= _size.height) {
-      game_over();
+   if (head.x < 0 || head.x >= _size.width || head.y < 0 || head.y >= _size.height && !_game_over) {
+      _game_over = true;
+      std::cout << "game over" << std::endl;
       }
    snake_vector_logic(_apple_eaten);
 
@@ -184,22 +186,27 @@ void CSnakeGameV2::draw() {
    if (cvui::button(canvas, 20, 180, "Reset")) {
       _reset = true;
       }
-
    if (cvui::button(getCanvas(), 100, 180, "Exit")) {
       std::cout << "game exited" << std::endl;
       setExit(true);
       }
-   /////////////////////////////////////////////////ChatGPT
-   for (int i = 0; i < _snake_position.size(); i= i + 5) {
-      cv::rectangle(canvas,
-         cv::Rect(_snake_position[i].x, _snake_position[i].y, SNAKE_THICKNESS, SNAKE_THICKNESS),
-         _colorArray[_color_index]._color_scalar,
-         cv::FILLED);
+   if (!_game_over) {
+      /////////////////////////////////////////////////ChatGPT
+      for (int i = 0; i < _snake_position.size(); i= i + 5) {
+         cv::rectangle(canvas,
+            cv::Rect(_snake_position[i].x, _snake_position[i].y, SNAKE_THICKNESS, SNAKE_THICKNESS),
+            _colorArray[_color_index]._color_scalar,
+            cv::FILLED);
+         }
+      ///////////////////////////////////////////////////
+      for (int i = 0; i < _apple_position.size(); i++) {
+      cv::circle(canvas, cv::Point(_apple_position[i].x + APPLE_RADIUS, _apple_position[i].y + APPLE_RADIUS),
+         APPLE_RADIUS, _colorArray[3]._color_scalar, cv::FILLED);
+        }
       }
-   ///////////////////////////////////////////////////
-   for (int i = 0; i < _apple_position.size(); i++) {
-   cv::circle(canvas, cv::Point(_apple_position[i].x + APPLE_RADIUS, _apple_position[i].y + APPLE_RADIUS),
-      APPLE_RADIUS, _colorArray[3]._color_scalar, cv::FILLED);
+   if (_game_over) {
+      cv::putText(canvas, "GAME OVER", cv::Point(_size.width / 3, _size.height / 2), cv::FONT_HERSHEY_SIMPLEX, 2.0, _colorArray[3]._color_scalar, 2);
+      cv::putText(canvas, "YOUR SCORE:" + std::to_string(_score), cv::Point(_size.width / 4, (_size.height / 3)*1.8), cv::FONT_HERSHEY_SIMPLEX, 2.0, _colorArray[3]._color_scalar, 2);
       }
    cvui::update();
    cv::imshow(GAME_NAME, canvas);
@@ -242,6 +249,7 @@ void CSnakeGameV2::apple_spawn() {
 void CSnakeGameV2::reset() {
       std::cout << "game reset" << std::endl;
       _apple_eaten = false;
+      _game_over = false;
       _snake_length = STARTING_LENGTH;
       _score = 0;
       _direction = cv::Point(0, -1);
@@ -254,8 +262,4 @@ void CSnakeGameV2::reset() {
          }
       _button_pressed = true;
       _snake_speed = 100;
-   }
-
-void CSnakeGameV2::game_over() {
-   std::cout << "game over" << std::endl;
    }
