@@ -7,6 +7,7 @@
 
 #include "stdafx.h"
 #include "CControl.h"
+#include <opencv2/core.hpp>
 
  /**
   * @class CBase4618
@@ -66,12 +67,21 @@ public:
    virtual void draw() = 0;
 
    /**
-    * @brief Runs the main execution loop.
+    * @brief Runs the main execution loop sequentially.
     *
     * This method handles the program's main execution cycle,
     * including GPIO, update, and draw steps.
     */
    void run();
+
+   /**
+    * @brief Runs the GPIO, update, and draw functions concurrently,
+    * with draw() running in the main thread.
+    *
+    * This multithreaded run function spawns two threads—one for GPIO and one for update—
+    * then calls draw() in the main thread.
+    */
+   void runMT();
 
    /**
     * @brief Gets the control object.

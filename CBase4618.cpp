@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CBase4618.h"
 #include "CControl.h"
+#include <thread>
 
 CBase4618::CBase4618() : _exit(false) {
    }
@@ -21,6 +22,24 @@ void CBase4618::run() {
          }
       }
    }
+///////////////////////////////////////////////////ChatGPT
+// In multithreaded mode, run gpio() and update() on separate threads,
+// but call draw() in the main thread so that cv::imshow and cv::waitKey work reliably.
+void CBase4618::runMT() {
+   _control.auto_connect();
+
+   // Spawn gpio and update on separate threads.
+   std::thread gpio_thread(&CBase4618::gpio, this);
+   std::thread update_thread(&CBase4618::update, this);
+
+   // Run draw() in the main thread.
+   draw();
+
+   // After draw() returns (exit requested), wait for the other threads.
+   gpio_thread.join();
+   update_thread.join();
+   }
+////////////////////////////////////////////////
 
 CControl& CBase4618::getControl() {
    return _control;

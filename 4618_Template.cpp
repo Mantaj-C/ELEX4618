@@ -487,7 +487,7 @@ void lab4()
 void lab5()
 {
    CSnakeGameV2 snakegame(cv::Size(SNAKEGAME_CANVAS_WIDTH, SNAKEGAME_CANVAS_HEIGHT));
-   snakegame.run();
+   snakegame.runMT();
 }
 
 ////////////////////////////////////////////////////////////////
