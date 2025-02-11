@@ -39,6 +39,7 @@ private:
    int _frameCount;
    double _lastTime_frame;
    double _lastTime_apple;
+   double _lastTime_lazer;
    bool _musicplaying;
    int _step_size;
    int _snake_speed;
@@ -52,8 +53,17 @@ private:
    int _update_time;
    int _gpio_time;
    int _draw_time;
-   cv::Mat overlay;
+   cv::Mat _overlay;
    float _apple_spawn_rate;
+   std::deque<cv::Point> _lazer_position;
+   std::deque<cv::Point> _lazer_direction;
+   cv::Mat _bottom_ship;
+   cv::Mat _right_ship;
+   bool _reset_done;
+   bool _lazer_firing;
+   bool _lazer_drawn;
+   bool _apple_movement;
+   bool _lazer_on;
 
 public:
    CSnakeGameV2(cv::Size size);
@@ -66,4 +76,5 @@ public:
    void reset();
    void apple_spawn();
    void snake_vector_logic(bool apple_flag);
+   void lazer();
    };
