@@ -15,6 +15,9 @@
 #define SCORE_INCREMENT 1
 #define APPLE_SPAWN_SPEED 5.0
 #define APPLE_SPAWN_FAST 0.2
+#define LAZER_FIRE_DURARTION 1.0
+#define LAZER_FIRE_RATE 5.0
+#define LAZER_SPEED 30
 #define APPLE_RADIUS 10
 #define MAX_FPS 30
 #define STARTING_LENGTH 100
@@ -35,7 +38,8 @@ enum { DIGITAL = 0, ANALOG, SERVO };
 CSnakeGameV2::CSnakeGameV2(cv::Size size)
    : _size(size), _reset(true), _color_flag(true),
    _color_index(0), _joystick_position(0, 0), _button_pressed(false), _musicplaying(false),
-   _step_size(10), _snake_speed(100), _game_over(false), _apple_spawn_rate(APPLE_SPAWN_SPEED) {
+   _step_size(10), _snake_speed(100), _game_over(false), _apple_spawn_rate(APPLE_SPAWN_SPEED), _reset_done(false), 
+   _lazer_firing(false), _lazer_drawn(false), _lazer_on(false), _apple_movement(false){
    _colorArray.push_back({ "Red", cv::Scalar(0,0,255), RGBLED_RED_PIN });
    _colorArray.push_back({ "Green", cv::Scalar(0,255,0), RGBLED_GREEN_PIN });
    _colorArray.push_back({ "Blue", cv::Scalar(255,0,0), RGBLED_BLUE_PIN });
@@ -44,6 +48,7 @@ CSnakeGameV2::CSnakeGameV2(cv::Size size)
    _snake_length = STARTING_LENGTH;
    _FPS = 0.0f;
    _frameCount = 0;
+   _lastTime_lazer = cv::getTickCount() / cv::getTickFrequency();
    _lastTime_frame = cv::getTickCount() / cv::getTickFrequency();
    _lastTime_apple = cv::getTickCount() / cv::getTickFrequency();
    setCanvas(cv::Mat::zeros(size, CV_8UC3));
@@ -101,12 +106,43 @@ void CSnakeGameV2::update() {
          _lastTime_apple = currentTime;
          apple_spawn();
          }
+      if (_lazer_on)
+         if (currentTime - _lastTime_lazer >= LAZER_FIRE_RATE - LAZER_FIRE_DURARTION) {
+         _lazer_firing = true;
+         if (currentTime - _lastTime_lazer >= LAZER_FIRE_RATE) {
+         _lastTime_lazer = currentTime;
+         _lazer_drawn = false;
+         _lazer_firing = false;
+            }
+         }
+
       _snake_hit_box = cv::Rect(_snake_position.front().x, _snake_position.front().y, SNAKE_THICKNESS, SNAKE_THICKNESS);
 
       for (int i = 0; i < _apple_position.size(); i++) {
          if ((_snake_hit_box & _apple_position[i]).area() > 0) {
             _apple_eaten = true;
             _apple_position.erase(_apple_position.begin() + i);
+            }
+         }
+         bool lazer_hit_snake = false;
+      if (_lazer_firing && _lazer_drawn && _lazer_on) {
+         for (int i = 0; (i < _snake_position.size()) && !lazer_hit_snake; i += 10) {
+            if ((((cv::Rect(_snake_position[i].x, _snake_position[i].y, SNAKE_THICKNESS, SNAKE_THICKNESS)) & 
+               (cv::Rect(_lazer_position[0].x + 12, 0, SNAKE_THICKNESS, _size.height - 20))).area() > 0) || 
+               (((cv::Rect(_snake_position[i].x, _snake_position[i].y, SNAKE_THICKNESS, SNAKE_THICKNESS)) &
+                  (cv::Rect(0, _lazer_position[1].y + 12, _size.width - 20, SNAKE_THICKNESS))).area() > 0)) {
+               int remove_snake = _snake_position.size() - i;
+               if (remove_snake >= _snake_position.size() - 10) {
+                  _game_over = true;
+                  }
+               else {
+               for (int j = 0; j < remove_snake; j++) {
+                  _snake_position.pop_back();
+                  }
+               _score -= remove_snake / 10;
+                  }
+               lazer_hit_snake = true;
+               }
             }
          }
       if (_apple_eaten) {
@@ -165,6 +201,9 @@ void CSnakeGameV2::update() {
          _snake_speed = 100;
          _step_size = 10;
          }
+
+      if (!_game_over && !_lazer_firing && _lazer_on)
+         lazer();
       //////////////////////////////////////////////////////////////ChatGPT
       auto update_end = std::chrono::steady_clock::now();
       auto update_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(update_end - update_start);
@@ -183,7 +222,7 @@ void CSnakeGameV2::draw() {
       _frameCount++;
       setCanvas(cv::Mat::zeros(_size, CV_8UC3));
       cv::Mat& canvas = getCanvas();
-      cvui::window(canvas, 10, 10, 260, 200, "Snake (" +
+      cvui::window(canvas, 10, 10, 260, 230, "Snake (" +
          std::to_string(_snake_position.front().x) + "," +
          std::to_string(_snake_position.front().y) + ")" +
          " (FPS = " + std::to_string(std::round(_FPS * 100) / 100) + ")");
@@ -193,12 +232,21 @@ void CSnakeGameV2::draw() {
       cvui::trackbar(canvas, 10, 70, 250, &_step_size, 1, MAX_STEP);
       cvui::text(canvas, 100, 125, "Snake Speed");
       cvui::trackbar(canvas, 10, 125, 250, &_snake_speed, 10, 500);
-      if (cvui::button(canvas, 20, 180, "Reset")) {
+      if (cvui::button(canvas, 20, 210, "Reset")) {
          _reset = true;
          }
-      if (cvui::button(canvas, 100, 180, "Exit")) {
+      if (cvui::button(canvas, 100, 210, "Exit")) {
          std::cout << "game exited" << std::endl;
          setExit(true);
+         }
+      if (cvui::button(canvas, 20, 180, "Lazer")) {
+         _lazer_on = !_lazer_on;
+         _lastTime_lazer = cv::getTickCount() / cv::getTickFrequency();
+         std::cout << "Lazer: " << std::to_string(_lazer_on) << std::endl;
+         }
+      if (cvui::button(canvas, 100, 180, "Apple Move")) {
+         _apple_movement = !_apple_movement;
+         std::cout << "Apple Movement: " << std::to_string(_apple_movement) << std::endl;
          }
       if (!_game_over) {
          for (int i = 0; i < _snake_position.size(); i += 5) {
@@ -211,11 +259,38 @@ void CSnakeGameV2::draw() {
             cv::circle(canvas, cv::Point(_apple_position[i].x + APPLE_RADIUS, _apple_position[i].y + APPLE_RADIUS),
                APPLE_RADIUS, _colorArray[3]._color_scalar, cv::FILLED);
             }
+         if (_lazer_firing && _lazer_on) {
+            cv::rectangle(canvas,
+               cv::Rect(_lazer_position[0].x + 12, 0, SNAKE_THICKNESS, _size.height - 20),
+               _colorArray[3]._color_scalar,
+               cv::FILLED);
+            cv::rectangle(canvas,
+               cv::Rect(0, _lazer_position[1].y + 12, _size.width - 20, SNAKE_THICKNESS),
+               _colorArray[3]._color_scalar,
+               cv::FILLED);
+            _lazer_drawn = true;
+            }
+         if (_reset_done && _lazer_on) {
+         cv::Rect roi_bottom_ship(_lazer_position[0].x, _lazer_position[0].y, _bottom_ship.cols, _bottom_ship.rows);
+         if (0 <= roi_bottom_ship.x && 0 <= roi_bottom_ship.y &&
+            roi_bottom_ship.x + roi_bottom_ship.width <= canvas.cols &&
+            roi_bottom_ship.y + roi_bottom_ship.height <= canvas.rows) {
+            cv::Mat roi_bottom_ship_paste = canvas(roi_bottom_ship);
+            _bottom_ship.copyTo(roi_bottom_ship_paste);
+            }
+         cv::Rect roi_right_ship(_lazer_position[1].x, _lazer_position[1].y, _right_ship.cols, _right_ship.rows);
+         if (0 <= roi_right_ship.x && 0 <= roi_right_ship.y &&
+            roi_right_ship.x + roi_right_ship.width <= canvas.cols &&
+            roi_right_ship.y + roi_right_ship.height <= canvas.rows) {
+            cv::Mat roi_right_ship_paste = canvas(roi_right_ship);
+            _right_ship.copyTo(roi_right_ship_paste);
+            }
+            }
          }
       else {
-         cv::Rect roiRect(_size.width /3, _size.height /3, overlay.cols, overlay.rows); //ChatGPT
+         cv::Rect roiRect(_size.width /3, _size.height /3, _overlay.cols, _overlay.rows); //ChatGPT
          cv::Mat roi = canvas(roiRect); //ChatGPT
-         overlay.copyTo(roi); //ChatGPT
+         _overlay.copyTo(roi); //ChatGPT
 
          cv::putText(canvas, "GAME OVER", cv::Point(_size.width / 3,_size.height /5),
             cv::FONT_HERSHEY_SIMPLEX, 2.0, _colorArray[3]._color_scalar, 2);
@@ -284,18 +359,45 @@ void CSnakeGameV2::reset() {
    std::cout << "game reset" << std::endl;
    _apple_eaten = false;
    _game_over = false;
+   _lazer_firing = false;
    _snake_length = STARTING_LENGTH;
    _score = 0;
    _direction = cv::Point(0, -1);
    _step_size = 10;
    _snake_position.clear();
    _apple_position.clear();
+   _lazer_position.clear();
    cv::Point start_position(_size.width / 2, _size.height / 2);
    for (int i = 0; i < STARTING_LENGTH; ++i) {
       _snake_position.push_back(cv::Point(start_position.x, start_position.y + i));
       }
    _button_pressed = true;
    _snake_speed = 100;
-   overlay = cv::imread("C:\\Users\\manta\\Downloads\\ELEX4618\\ELEX4618-Template-master\\Snake.jpg", cv::IMREAD_COLOR);
+   _lazer_position.push_back(cv::Point(_size.width/2, _size.height - 20));
+   _lazer_position.push_back(cv::Point(_size.width - 20, _size.height/2));
+   _lazer_direction.push_back(cv::Point(LAZER_SPEED,0));
+   _lazer_direction.push_back(cv::Point(0,-LAZER_SPEED));
+   _overlay = cv::imread("C:\\Users\\manta\\Downloads\\ELEX4618\\ELEX4618-Template-master\\Snake.jpg", cv::IMREAD_COLOR);
+   _bottom_ship = cv::imread("C:\\Users\\manta\\Downloads\\ELEX4618\\ELEX4618-Template-master\\bottom_ship.png", cv::IMREAD_COLOR);
+   _right_ship = cv::imread("C:\\Users\\manta\\Downloads\\ELEX4618\\ELEX4618-Template-master\\right_ship.png", cv::IMREAD_COLOR);
    mciSendString("open \"C:\\Users\\manta\\Downloads\\ELEX4618\\ELEX4618-Template-master\\Music.mp3\" type mpegvideo alias myMusic", NULL, 0, NULL);
+   _lastTime_lazer = cv::getTickCount() / cv::getTickFrequency();
+   _lastTime_apple = cv::getTickCount() / cv::getTickFrequency();
+   _lazer_on = false;
+   _apple_movement = false;
+   _reset_done = true;
+   }
+
+void CSnakeGameV2::lazer() {
+      if (_lazer_direction[0] == cv::Point(LAZER_SPEED, 0) && _lazer_position[0].x >= _size.width - 30)
+         _lazer_direction[0] = cv::Point(-LAZER_SPEED, 0);
+      else if (_lazer_direction[0] == cv::Point(-LAZER_SPEED, 0) && _lazer_position[0].x <= 30)
+         _lazer_direction[0] = cv::Point(LAZER_SPEED, 0);
+
+      if (_lazer_direction[1] == cv::Point(0, LAZER_SPEED) && _lazer_position[1].y >= _size.height - 30)
+         _lazer_direction[1] = cv::Point(0, -LAZER_SPEED);
+      else if (_lazer_direction[1] == cv::Point(0, -LAZER_SPEED) && _lazer_position[1].y <= 30)
+         _lazer_direction[1] = cv::Point(0, LAZER_SPEED);
+      _lazer_position[0] = _lazer_position[0] + _lazer_direction[0];
+      _lazer_position[1] = _lazer_position[1] + _lazer_direction[1];
    }
