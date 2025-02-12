@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "cvui.h"
 #include "CSnakeGameV2.h"
+#include "Rainbowcolors.h"
 #include <windows.h>
 #include <mmsystem.h>
 #include <vector>
@@ -51,6 +52,7 @@ CSnakeGameV2::CSnakeGameV2(cv::Size size)
    _lastTime_lazer = cv::getTickCount() / cv::getTickFrequency();
    _lastTime_frame = cv::getTickCount() / cv::getTickFrequency();
    _lastTime_apple = cv::getTickCount() / cv::getTickFrequency();
+   _rainbow = RainbowColors::getRainbowColors();
    setCanvas(cv::Mat::zeros(size, CV_8UC3));
    cvui::init(GAME_NAME);
    }
@@ -122,6 +124,7 @@ void CSnakeGameV2::update() {
          if ((_snake_hit_box & _apple_position[i]).area() > 0) {
             _apple_eaten = true;
             _apple_position.erase(_apple_position.begin() + i);
+            _apple_direction.erase(_apple_direction.begin() + i);
             }
          }
          bool lazer_hit_snake = false;
@@ -152,7 +155,7 @@ void CSnakeGameV2::update() {
          _apple_eaten = false;
          }
       cv::Point head = _snake_position.front();
-      _colorArray[3]._color_scalar = cv::Scalar(rand() % 256, rand() % 256, rand() % 256);
+      _colorArray[3]._color_scalar = _rainbow[(rand() % 100)];
       if (_joystick_position.x >= JOYSTICK_UPPER_THRESHOLD && _direction != cv::Point(-1, 0))
          _direction = cv::Point(1, 0);
       else if (_joystick_position.y >= JOYSTICK_UPPER_THRESHOLD && _direction != cv::Point(0, 1))
@@ -161,6 +164,8 @@ void CSnakeGameV2::update() {
          _direction = cv::Point(-1, 0);
       else if (_joystick_position.y <= JOYSTICK_LOWER_THRESHOLD && _direction != cv::Point(0, -1))
          _direction = cv::Point(0, 1);
+      if (_game_over)
+         _direction = cv::Point(0, 0);
 
       for (int i = 20; i < _snake_position.size(); i += 10) {
          if ((_snake_hit_box & cv::Rect(_snake_position[i].x, _snake_position[i].y, SNAKE_THICKNESS, SNAKE_THICKNESS)).area() > 0 && !_game_over) {
@@ -200,6 +205,24 @@ void CSnakeGameV2::update() {
          _apple_spawn_rate = APPLE_SPAWN_SPEED;
          _snake_speed = 100;
          _step_size = 10;
+         }
+
+      if (_apple_movement) {
+         for (int i = 0; i < _apple_position.size(); i++) {
+            if (_apple_position[i].x < 20) {
+                _apple_direction[i] += cv::Point(20, 0);
+               }
+            else if (_apple_position[i].x > _size.width - 20) {
+               _apple_direction[i] += cv::Point(-20, 0);
+               }
+            if (_apple_position[i].y < 20) {
+               _apple_direction[i] += cv::Point(0, 20);
+               }
+            else if (_apple_position[i].y > _size.height - 20) {
+               _apple_direction[i] += cv::Point(0, -20);
+               }
+            _apple_position[i] += _apple_direction[i];
+            }
          }
 
       if (!_game_over && !_lazer_firing && _lazer_on)
@@ -249,11 +272,22 @@ void CSnakeGameV2::draw() {
          std::cout << "Apple Movement: " << std::to_string(_apple_movement) << std::endl;
          }
       if (!_game_over) {
+         int rainbow_index = 0;
          for (int i = 0; i < _snake_position.size(); i += 5) {
+            if (_color_index <= 2)
             cv::rectangle(canvas,
                cv::Rect(_snake_position[i].x, _snake_position[i].y, SNAKE_THICKNESS, SNAKE_THICKNESS),
                _colorArray[_color_index]._color_scalar,
                cv::FILLED);
+            else {
+               if (rainbow_index == 99)
+                  rainbow_index = 0;
+               cv::rectangle(canvas,
+                  cv::Rect(_snake_position[i].x, _snake_position[i].y, SNAKE_THICKNESS, SNAKE_THICKNESS),
+                  _rainbow[rainbow_index],
+                  cv::FILLED);
+               rainbow_index++;
+               }
             }
          for (int i = 0; i < _apple_position.size(); i++) {
             cv::circle(canvas, cv::Point(_apple_position[i].x + APPLE_RADIUS, _apple_position[i].y + APPLE_RADIUS),
@@ -353,6 +387,7 @@ void CSnakeGameV2::apple_spawn() {
          }
       }
    _apple_position.push_back(apple);
+   _apple_direction.push_back(cv::Point(((rand() % 2 == 0) ? -1 : 1) * 10, ((rand() % 2 == 0) ? -1 : 1) * 10));
    }
 
 void CSnakeGameV2::reset() {
