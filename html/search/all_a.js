@@ -1,4 +1,8 @@
 var searchData=
 [
-  ['update_62',['update',['../class_c_base4618.html#a1e2f3c16eb99b5bfdd5d5254aee39ee6',1,'CBase4618::update()'],['../class_c_snake_game.html#a0ffed1f4807355249acb22415a890440',1,'CSnakeGame::update()'],['../class_c_snake_game_v2.html#a7349430ad13bedb9514da28952f9f2ec',1,'CSnakeGameV2::update()']]]
+  ['test_5fanalog_91',['test_analog',['../class_c_control.html#a80a1310e1afd898f7c1ee40efe5011a6',1,'CControl']]],
+  ['test_5fbutton_92',['test_button',['../class_c_control.html#af579a49acc82acccfd2893b966fb4836',1,'CControl']]],
+  ['test_5fdigital_93',['test_digital',['../class_c_control.html#ad8566e114f1027d2f2716386c59f9299',1,'CControl']]],
+  ['test_5fservo_94',['test_servo',['../class_c_control.html#af7b299f2dbb6918970f91d7db2193792',1,'CControl']]],
+  ['trackbarparams_95',['TrackbarParams',['../structcvui_1_1internal_1_1_trackbar_params.html',1,'cvui::internal']]]
 ];

@@ -31,7 +31,9 @@ virtual void \mbox{\hyperlink{class_c_base4618_a1e2f3c16eb99b5bfdd5d5254aee39ee6
 virtual void \mbox{\hyperlink{class_c_base4618_a0987bf28e9beed4753d3628fcddc3315}{draw}} ()=0
 \begin{DoxyCompactList}\small\item\em Pure virtual method for drawing on the canvas. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_c_base4618_a535e816d735d10d6048dd39cd893d393}{run}} ()
-\begin{DoxyCompactList}\small\item\em Runs the main execution loop. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Runs the main execution loop sequentially. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_base4618_a58d9e64f94410bc618b8db109d0f4bb8}{run\+MT}} ()
+\begin{DoxyCompactList}\small\item\em Runs the GPIO, update, and draw functions concurrently, with \mbox{\hyperlink{class_c_base4618_a0987bf28e9beed4753d3628fcddc3315}{draw()}} running in the main thread. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_c_control}{CControl}} \& \mbox{\hyperlink{class_c_base4618_a344da39b99d2e690049d42dedcf7f8e3}{get\+Control}} ()
 \begin{DoxyCompactList}\small\item\em Gets the control object. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_c_base4618_a7bbe1735dbebbb642aa2cce6d15d5ca7}{set\+Control}} (const \mbox{\hyperlink{class_c_control}{CControl}} \&control)
@@ -139,9 +141,19 @@ Implemented in \mbox{\hyperlink{class_c_snake_game_v2_a9a6f43cb71bc136df4e4b26c7
 
 
 
-Runs the main execution loop. 
+Runs the main execution loop sequentially. 
 
-This method handles the program\textquotesingle{}s main execution cycle, including GPIO, update, and draw steps. \mbox{\Hypertarget{class_c_base4618_a5bb9d76d84a4ec72c0ffa0f65255c395}\label{class_c_base4618_a5bb9d76d84a4ec72c0ffa0f65255c395}} 
+This method handles the program\textquotesingle{}s main execution cycle, including GPIO, update, and draw steps. \mbox{\Hypertarget{class_c_base4618_a58d9e64f94410bc618b8db109d0f4bb8}\label{class_c_base4618_a58d9e64f94410bc618b8db109d0f4bb8}} 
+\index{CBase4618@{CBase4618}!runMT@{runMT}}
+\index{runMT@{runMT}!CBase4618@{CBase4618}}
+\doxysubsubsection{\texorpdfstring{runMT()}{runMT()}}
+{\footnotesize\ttfamily void CBase4618\+::run\+MT (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Runs the GPIO, update, and draw functions concurrently, with \mbox{\hyperlink{class_c_base4618_a0987bf28e9beed4753d3628fcddc3315}{draw()}} running in the main thread. 
+
+This multithreaded run function spawns two threads—one for GPIO and one for update— then calls \mbox{\hyperlink{class_c_base4618_a0987bf28e9beed4753d3628fcddc3315}{draw()}} in the main thread. \mbox{\Hypertarget{class_c_base4618_a5bb9d76d84a4ec72c0ffa0f65255c395}\label{class_c_base4618_a5bb9d76d84a4ec72c0ffa0f65255c395}} 
 \index{CBase4618@{CBase4618}!setCanvas@{setCanvas}}
 \index{setCanvas@{setCanvas}!CBase4618@{CBase4618}}
 \doxysubsubsection{\texorpdfstring{setCanvas()}{setCanvas()}}
