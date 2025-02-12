@@ -7,6 +7,7 @@
 
 #include "stdafx.h"
 #include "CBase4618.h"
+#include "RainbowColors.h"
 #include <vector>
 #include <deque>
 
@@ -46,6 +47,7 @@ private:
    int _snake_length;
    bool _apple_eaten;
    std::deque<cv::Rect> _apple_position;
+   std::deque<cv::Point> _apple_direction;
    int _score;
    cv::Rect _snake_hit_box;
    bool _game_over;
@@ -64,6 +66,7 @@ private:
    bool _lazer_drawn;
    bool _apple_movement;
    bool _lazer_on;
+   std::array<cv::Scalar, 100> _rainbow;
 
 public:
    CSnakeGameV2(cv::Size size);

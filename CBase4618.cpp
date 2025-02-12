@@ -36,8 +36,8 @@ void CBase4618::runMT() {
    draw();
 
    // After draw() returns (exit requested), wait for the other threads.
-   gpio_thread.join();
-   update_thread.join();
+   gpio_thread.detach();
+   update_thread.detach();
    }
 ////////////////////////////////////////////////
 
