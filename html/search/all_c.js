@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['write_64',['write',['../class_serial.html#aae3d630a4fd81c8b148cb4eebdb91392',1,'Serial']]]
+  ['valid_5fchar_97',['valid_char',['../class_c_control.html#a88f4af0b9e46895f5727a0695e553a51',1,'CControl']]]
 ];

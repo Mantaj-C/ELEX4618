@@ -15,7 +15,7 @@
 #define SNAKE_THICKNESS 10
 #define SCORE_INCREMENT 1
 #define APPLE_SPAWN_SPEED 5.0
-#define APPLE_SPAWN_FAST 0.2
+#define APPLE_SPAWN_FAST 2.0
 #define LAZER_FIRE_DURARTION 1.0
 #define LAZER_FIRE_RATE 5.0
 #define LAZER_SPEED 30
@@ -272,7 +272,7 @@ void CSnakeGameV2::draw() {
          std::cout << "Apple Movement: " << std::to_string(_apple_movement) << std::endl;
          }
       if (!_game_over) {
-         int rainbow_index = 0;
+         int rainbow_index = 3*_frameCount;
          for (int i = 0; i < _snake_position.size(); i += 5) {
             if (_color_index <= 2)
             cv::rectangle(canvas,
@@ -280,7 +280,7 @@ void CSnakeGameV2::draw() {
                _colorArray[_color_index]._color_scalar,
                cv::FILLED);
             else {
-               if (rainbow_index == 99)
+               if (rainbow_index >= 99)
                   rainbow_index = 0;
                cv::rectangle(canvas,
                   cv::Rect(_snake_position[i].x, _snake_position[i].y, SNAKE_THICKNESS, SNAKE_THICKNESS),

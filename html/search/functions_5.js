@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['print_5fmenu_102',['print_menu',['../class_c_control.html#ae2aae253af181f49a14bccd5696a524e',1,'CControl']]]
+  ['lazer_138',['lazer',['../class_c_snake_game_v2.html#a3da5aa09033feb412c59dda281f00b3d',1,'CSnakeGameV2']]]
 ];

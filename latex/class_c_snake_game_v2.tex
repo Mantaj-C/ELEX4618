@@ -1,5 +1,14 @@
 \hypertarget{class_c_snake_game_v2}{}\doxysection{CSnake\+Game\+V2 Class Reference}
 \label{class_c_snake_game_v2}\index{CSnakeGameV2@{CSnakeGameV2}}
+
+
+A class representing the Snake game, extending the \mbox{\hyperlink{class_c_base4618}{CBase4618}} class.  
+
+
+
+
+{\ttfamily \#include $<$CSnake\+Game\+V2.\+h$>$}
+
 Inheritance diagram for CSnake\+Game\+V2\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -10,111 +19,167 @@ Inheritance diagram for CSnake\+Game\+V2\+:\begin{figure}[H]
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct_c_snake_game_v2_1_1__color__structure}{\+\_\+color\+\_\+structure}}
-\begin{DoxyCompactList}\small\item\em Structure to store color information for the game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Structure representing color properties. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_c_snake_game_v2_acb1ba0c302144c94b529056149b51dea}{CSnake\+Game\+V2}} (cv\+::\+Size size)
-\begin{DoxyCompactList}\small\item\em Constructs the Snake game with a specified canvas size. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{class_c_snake_game_v2}{CSnake\+Game\+V2}}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a779d4a9069f0e569cbe3670900509f2a}\label{class_c_snake_game_v2_a779d4a9069f0e569cbe3670900509f2a}} 
 \mbox{\hyperlink{class_c_snake_game_v2_a779d4a9069f0e569cbe3670900509f2a}{$\sim$\+CSnake\+Game\+V2}} ()
-\begin{DoxyCompactList}\small\item\em Destructor for \mbox{\hyperlink{class_c_snake_game}{CSnake\+Game}}. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Destructor for \mbox{\hyperlink{class_c_snake_game_v2}{CSnake\+Game\+V2}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_a9a6f43cb71bc136df4e4b26c7ff6982d}\label{class_c_snake_game_v2_a9a6f43cb71bc136df4e4b26c7ff6982d}} 
 void \mbox{\hyperlink{class_c_snake_game_v2_a9a6f43cb71bc136df4e4b26c7ff6982d}{gpio}} () override
-\begin{DoxyCompactList}\small\item\em Handles GPIO operations such as button presses and LED updates. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Handles GPIO operations, such as button inputs and joystick control. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a7349430ad13bedb9514da28952f9f2ec}\label{class_c_snake_game_v2_a7349430ad13bedb9514da28952f9f2ec}} 
 void \mbox{\hyperlink{class_c_snake_game_v2_a7349430ad13bedb9514da28952f9f2ec}{update}} () override
-\begin{DoxyCompactList}\small\item\em Updates the game state, including snake movement and color changes. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Updates the game logic, including snake movement and collision detection. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a07f3e4d9c9074e7c331e2b70fc0af4db}\label{class_c_snake_game_v2_a07f3e4d9c9074e7c331e2b70fc0af4db}} 
 void \mbox{\hyperlink{class_c_snake_game_v2_a07f3e4d9c9074e7c331e2b70fc0af4db}{draw}} () override
-\begin{DoxyCompactList}\small\item\em Renders the game graphics, drawing the snake and user interface. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Draws the game elements (snake, apples, lasers, etc.) onto the screen. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a354697df5e6f10ab9cfedfe4dd34df15}\label{class_c_snake_game_v2_a354697df5e6f10ab9cfedfe4dd34df15}} 
-void {\bfseries reset} ()
-\item 
-\mbox{\Hypertarget{class_c_snake_game_v2_a75f85a716f7ae0a778cd04bd6166f4e0}\label{class_c_snake_game_v2_a75f85a716f7ae0a778cd04bd6166f4e0}} 
-void {\bfseries game\+\_\+over} ()
-\item 
+void \mbox{\hyperlink{class_c_snake_game_v2_a354697df5e6f10ab9cfedfe4dd34df15}{reset}} ()
+\begin{DoxyCompactList}\small\item\em Resets the game state, including the snake position, score, and objects. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a2726b3ebc9d9aae6219f01dac3cc8231}\label{class_c_snake_game_v2_a2726b3ebc9d9aae6219f01dac3cc8231}} 
-void {\bfseries apple\+\_\+spawn} ()
-\item 
-\mbox{\Hypertarget{class_c_snake_game_v2_ab3e021e1a6172b96186edc50f39b2968}\label{class_c_snake_game_v2_ab3e021e1a6172b96186edc50f39b2968}} 
-void {\bfseries snake\+\_\+vector\+\_\+logic} (bool apple\+\_\+flag)
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{class_c_snake_game_v2_a2726b3ebc9d9aae6219f01dac3cc8231}{apple\+\_\+spawn}} ()
+\begin{DoxyCompactList}\small\item\em Spawns apples at random locations. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_snake_game_v2_ab3e021e1a6172b96186edc50f39b2968}{snake\+\_\+vector\+\_\+logic}} (bool apple\+\_\+flag)
+\begin{DoxyCompactList}\small\item\em Manages the logic of the snake\textquotesingle{}s movement and apple interactions. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_a3da5aa09033feb412c59dda281f00b3d}\label{class_c_snake_game_v2_a3da5aa09033feb412c59dda281f00b3d}} 
+void \mbox{\hyperlink{class_c_snake_game_v2_a3da5aa09033feb412c59dda281f00b3d}{lazer}} ()
+\begin{DoxyCompactList}\small\item\em Handles laser mechanics, including firing and movement. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_c_snake_game_v2_aa090e8b7cdc4f28a783a3b025e02a9b1}\label{class_c_snake_game_v2_aa090e8b7cdc4f28a783a3b025e02a9b1}} 
 cv\+::\+Size \mbox{\hyperlink{class_c_snake_game_v2_aa090e8b7cdc4f28a783a3b025e02a9b1}{\+\_\+size}}
-\begin{DoxyCompactList}\small\item\em The size of the game canvas. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Game board size. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a70b4cf213a0275b3078fff0cbcba5017}\label{class_c_snake_game_v2_a70b4cf213a0275b3078fff0cbcba5017}} 
 bool \mbox{\hyperlink{class_c_snake_game_v2_a70b4cf213a0275b3078fff0cbcba5017}{\+\_\+reset}}
-\begin{DoxyCompactList}\small\item\em Flag indicating whether the game should reset. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Flag to reset the game state. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_aa4d099f2a8a2ee1fb9af8c8cb6a3653d}\label{class_c_snake_game_v2_aa4d099f2a8a2ee1fb9af8c8cb6a3653d}} 
 int \mbox{\hyperlink{class_c_snake_game_v2_aa4d099f2a8a2ee1fb9af8c8cb6a3653d}{\+\_\+color\+\_\+index}}
-\begin{DoxyCompactList}\small\item\em Index tracking the current selected color. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Index to track the current color. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a0b0d5d5ab51127bb2d05852ea2aa0ab8}\label{class_c_snake_game_v2_a0b0d5d5ab51127bb2d05852ea2aa0ab8}} 
 std\+::vector$<$ \mbox{\hyperlink{struct_c_snake_game_v2_1_1__color__structure}{\+\_\+color\+\_\+structure}} $>$ \mbox{\hyperlink{class_c_snake_game_v2_a0b0d5d5ab51127bb2d05852ea2aa0ab8}{\+\_\+color\+Array}}
-\begin{DoxyCompactList}\small\item\em A list of available colors and their associated LED pins. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Array of available colors. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a50c5028e36ab7687e5940613d0f5383f}\label{class_c_snake_game_v2_a50c5028e36ab7687e5940613d0f5383f}} 
 std\+::deque$<$ cv\+::\+Point $>$ \mbox{\hyperlink{class_c_snake_game_v2_a50c5028e36ab7687e5940613d0f5383f}{\+\_\+snake\+\_\+position}}
-\begin{DoxyCompactList}\small\item\em The deque storing the positions of the snake\textquotesingle{}s body. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Deque storing the snake\textquotesingle{}s position. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a55f09ef29800a5fc49e2388f8138af3f}\label{class_c_snake_game_v2_a55f09ef29800a5fc49e2388f8138af3f}} 
 cv\+::\+Point2f \mbox{\hyperlink{class_c_snake_game_v2_a55f09ef29800a5fc49e2388f8138af3f}{\+\_\+joystick\+\_\+position}}
-\begin{DoxyCompactList}\small\item\em The joystick\textquotesingle{}s last known position for controlling movement. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Stores joystick position (x, y). \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a24da2fba6731a3774a1fc2d4d5b1e11e}\label{class_c_snake_game_v2_a24da2fba6731a3774a1fc2d4d5b1e11e}} 
 int \mbox{\hyperlink{class_c_snake_game_v2_a24da2fba6731a3774a1fc2d4d5b1e11e}{\+\_\+prev\+\_\+color}}
-\begin{DoxyCompactList}\small\item\em Stores the previous color before a color change occurs. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Previous selected color index. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a026929dbc268468fbe2e788c78e9ebb8}\label{class_c_snake_game_v2_a026929dbc268468fbe2e788c78e9ebb8}} 
 bool \mbox{\hyperlink{class_c_snake_game_v2_a026929dbc268468fbe2e788c78e9ebb8}{\+\_\+button\+\_\+pressed}}
-\begin{DoxyCompactList}\small\item\em Tracks whether the button is currently pressed. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Flag for button press status. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_aac5836753a27548463a11dd22c34fa29}\label{class_c_snake_game_v2_aac5836753a27548463a11dd22c34fa29}} 
 bool \mbox{\hyperlink{class_c_snake_game_v2_aac5836753a27548463a11dd22c34fa29}{\+\_\+color\+\_\+flag}}
-\begin{DoxyCompactList}\small\item\em Flag indicating if the color should be updated. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Flag for color state. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a4cf2a2ca2875473176716a56b7140a36}\label{class_c_snake_game_v2_a4cf2a2ca2875473176716a56b7140a36}} 
 cv\+::\+Point \mbox{\hyperlink{class_c_snake_game_v2_a4cf2a2ca2875473176716a56b7140a36}{\+\_\+direction}}
-\begin{DoxyCompactList}\small\item\em The previous movement direction of the snake. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Stores the snake\textquotesingle{}s movement direction. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_ab21990eda807658dc71346c6c4cc9e5a}\label{class_c_snake_game_v2_ab21990eda807658dc71346c6c4cc9e5a}} 
-float {\bfseries \+\_\+\+FPS}
-\item 
+float \mbox{\hyperlink{class_c_snake_game_v2_ab21990eda807658dc71346c6c4cc9e5a}{\+\_\+\+FPS}}
+\begin{DoxyCompactList}\small\item\em Frames per second calculation. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a99e9543e02dfc34a7dab735e73bce423}\label{class_c_snake_game_v2_a99e9543e02dfc34a7dab735e73bce423}} 
-int {\bfseries \+\_\+frame\+Count}
-\item 
+int \mbox{\hyperlink{class_c_snake_game_v2_a99e9543e02dfc34a7dab735e73bce423}{\+\_\+frame\+Count}}
+\begin{DoxyCompactList}\small\item\em Counter for frames rendered. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a27afda298ba056dfab21cb5375e2d529}\label{class_c_snake_game_v2_a27afda298ba056dfab21cb5375e2d529}} 
-double {\bfseries \+\_\+last\+Time\+\_\+frame}
-\item 
+double \mbox{\hyperlink{class_c_snake_game_v2_a27afda298ba056dfab21cb5375e2d529}{\+\_\+last\+Time\+\_\+frame}}
+\begin{DoxyCompactList}\small\item\em Timestamp of last frame update. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a4fbf5a23ea2985816ca0fd1b9f98001b}\label{class_c_snake_game_v2_a4fbf5a23ea2985816ca0fd1b9f98001b}} 
-double {\bfseries \+\_\+last\+Time\+\_\+apple}
-\item 
+double \mbox{\hyperlink{class_c_snake_game_v2_a4fbf5a23ea2985816ca0fd1b9f98001b}{\+\_\+last\+Time\+\_\+apple}}
+\begin{DoxyCompactList}\small\item\em Timestamp of last apple spawn. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_a6528738a71e2d1dc31fb75fa0bdcbc04}\label{class_c_snake_game_v2_a6528738a71e2d1dc31fb75fa0bdcbc04}} 
+double \mbox{\hyperlink{class_c_snake_game_v2_a6528738a71e2d1dc31fb75fa0bdcbc04}{\+\_\+last\+Time\+\_\+lazer}}
+\begin{DoxyCompactList}\small\item\em Timestamp of last laser firing. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a48d51c86d1911692d44bdf35da5d0aef}\label{class_c_snake_game_v2_a48d51c86d1911692d44bdf35da5d0aef}} 
-bool {\bfseries \+\_\+musicplaying}
-\item 
+bool \mbox{\hyperlink{class_c_snake_game_v2_a48d51c86d1911692d44bdf35da5d0aef}{\+\_\+musicplaying}}
+\begin{DoxyCompactList}\small\item\em Flag for music playback status. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_ac2cda4bea9d0f1d5b8cdf2937f6d9417}\label{class_c_snake_game_v2_ac2cda4bea9d0f1d5b8cdf2937f6d9417}} 
-int {\bfseries \+\_\+step\+\_\+size}
-\item 
+int \mbox{\hyperlink{class_c_snake_game_v2_ac2cda4bea9d0f1d5b8cdf2937f6d9417}{\+\_\+step\+\_\+size}}
+\begin{DoxyCompactList}\small\item\em The step size of the snake movement. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_aa6185a9f5a5e64af35bed6661dece90e}\label{class_c_snake_game_v2_aa6185a9f5a5e64af35bed6661dece90e}} 
-int {\bfseries \+\_\+snake\+\_\+speed}
-\item 
+int \mbox{\hyperlink{class_c_snake_game_v2_aa6185a9f5a5e64af35bed6661dece90e}{\+\_\+snake\+\_\+speed}}
+\begin{DoxyCompactList}\small\item\em Speed of the snake. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_a3cb3922e5aa4ec9591ec12fb275746b3}\label{class_c_snake_game_v2_a3cb3922e5aa4ec9591ec12fb275746b3}} 
-int {\bfseries \+\_\+snake\+\_\+length}
-\item 
+int \mbox{\hyperlink{class_c_snake_game_v2_a3cb3922e5aa4ec9591ec12fb275746b3}{\+\_\+snake\+\_\+length}}
+\begin{DoxyCompactList}\small\item\em Current length of the snake. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_aff0521afac1711d115073db9fef16294}\label{class_c_snake_game_v2_aff0521afac1711d115073db9fef16294}} 
-bool {\bfseries \+\_\+apple\+\_\+eaten}
-\item 
-\mbox{\Hypertarget{class_c_snake_game_v2_a590c99ff26c4354bb0f28c7cbbc9f5e4}\label{class_c_snake_game_v2_a590c99ff26c4354bb0f28c7cbbc9f5e4}} 
-cv\+::\+Point {\bfseries \+\_\+apple\+\_\+position}
-\item 
-\mbox{\Hypertarget{class_c_snake_game_v2_aa6d403ef9194be005906b02986057854}\label{class_c_snake_game_v2_aa6d403ef9194be005906b02986057854}} 
-bool {\bfseries \+\_\+apple\+\_\+inplay}
-\item 
+bool \mbox{\hyperlink{class_c_snake_game_v2_aff0521afac1711d115073db9fef16294}{\+\_\+apple\+\_\+eaten}}
+\begin{DoxyCompactList}\small\item\em Flag indicating if an apple has been eaten. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_a29d546a363b698c87040f5ecd51092c7}\label{class_c_snake_game_v2_a29d546a363b698c87040f5ecd51092c7}} 
+std\+::deque$<$ cv\+::\+Rect $>$ \mbox{\hyperlink{class_c_snake_game_v2_a29d546a363b698c87040f5ecd51092c7}{\+\_\+apple\+\_\+position}}
+\begin{DoxyCompactList}\small\item\em Positions of apples on the board. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_aa71a1a5ce1899f421ea5f4bfb1c204fb}\label{class_c_snake_game_v2_aa71a1a5ce1899f421ea5f4bfb1c204fb}} 
+std\+::deque$<$ cv\+::\+Point $>$ \mbox{\hyperlink{class_c_snake_game_v2_aa71a1a5ce1899f421ea5f4bfb1c204fb}{\+\_\+apple\+\_\+direction}}
+\begin{DoxyCompactList}\small\item\em Movement direction of apples. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_af6440edfb449f14cb6003e9d737387c7}\label{class_c_snake_game_v2_af6440edfb449f14cb6003e9d737387c7}} 
-int {\bfseries \+\_\+score}
-\item 
-\mbox{\Hypertarget{class_c_snake_game_v2_a4ec09dbf1268cc75dd0f0bb8aeab6ecb}\label{class_c_snake_game_v2_a4ec09dbf1268cc75dd0f0bb8aeab6ecb}} 
-cv\+::\+Rect {\bfseries \+\_\+apple\+\_\+hit\+\_\+box}
-\item 
+int \mbox{\hyperlink{class_c_snake_game_v2_af6440edfb449f14cb6003e9d737387c7}{\+\_\+score}}
+\begin{DoxyCompactList}\small\item\em Player\textquotesingle{}s current score. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_c_snake_game_v2_ac045b19278358db9f87620856e343038}\label{class_c_snake_game_v2_ac045b19278358db9f87620856e343038}} 
-cv\+::\+Rect {\bfseries \+\_\+snake\+\_\+hit\+\_\+box}
-\end{DoxyCompactItemize}
+cv\+::\+Rect \mbox{\hyperlink{class_c_snake_game_v2_ac045b19278358db9f87620856e343038}{\+\_\+snake\+\_\+hit\+\_\+box}}
+\begin{DoxyCompactList}\small\item\em Bounding box of the snake\textquotesingle{}s head. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_a9b18d417d72c5becb8fd0a03f87fec31}\label{class_c_snake_game_v2_a9b18d417d72c5becb8fd0a03f87fec31}} 
+bool \mbox{\hyperlink{class_c_snake_game_v2_a9b18d417d72c5becb8fd0a03f87fec31}{\+\_\+game\+\_\+over}}
+\begin{DoxyCompactList}\small\item\em Flag indicating if the game is over. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_af7b00c473529abcd86a8001a0837605c}\label{class_c_snake_game_v2_af7b00c473529abcd86a8001a0837605c}} 
+std\+::mutex \mbox{\hyperlink{class_c_snake_game_v2_af7b00c473529abcd86a8001a0837605c}{\+\_\+music\+\_\+mutex}}
+\begin{DoxyCompactList}\small\item\em Mutex for thread-\/safe music control. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_aa1afe3c12c0adbc6babd9fbe871ecc64}\label{class_c_snake_game_v2_aa1afe3c12c0adbc6babd9fbe871ecc64}} 
+int \mbox{\hyperlink{class_c_snake_game_v2_aa1afe3c12c0adbc6babd9fbe871ecc64}{\+\_\+update\+\_\+time}}
+\begin{DoxyCompactList}\small\item\em Time taken for update function execution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_aa2c3a9943ae17f1a3f3182ed08c605dc}\label{class_c_snake_game_v2_aa2c3a9943ae17f1a3f3182ed08c605dc}} 
+int \mbox{\hyperlink{class_c_snake_game_v2_aa2c3a9943ae17f1a3f3182ed08c605dc}{\+\_\+gpio\+\_\+time}}
+\begin{DoxyCompactList}\small\item\em Time taken for GPIO function execution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_ab962ac3e1c3e6d300b06907b12667a16}\label{class_c_snake_game_v2_ab962ac3e1c3e6d300b06907b12667a16}} 
+int \mbox{\hyperlink{class_c_snake_game_v2_ab962ac3e1c3e6d300b06907b12667a16}{\+\_\+draw\+\_\+time}}
+\begin{DoxyCompactList}\small\item\em Time taken for draw function execution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_aacd371d8fc702712b9442fdaf2d00d86}\label{class_c_snake_game_v2_aacd371d8fc702712b9442fdaf2d00d86}} 
+cv\+::\+Mat \mbox{\hyperlink{class_c_snake_game_v2_aacd371d8fc702712b9442fdaf2d00d86}{\+\_\+overlay}}
+\begin{DoxyCompactList}\small\item\em Overlay image for rendering. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_a58892b9b68ba86c244eeb11f726a6d17}\label{class_c_snake_game_v2_a58892b9b68ba86c244eeb11f726a6d17}} 
+float \mbox{\hyperlink{class_c_snake_game_v2_a58892b9b68ba86c244eeb11f726a6d17}{\+\_\+apple\+\_\+spawn\+\_\+rate}}
+\begin{DoxyCompactList}\small\item\em Rate at which apples spawn. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_a631d95a523de26e32777974474d00db8}\label{class_c_snake_game_v2_a631d95a523de26e32777974474d00db8}} 
+std\+::deque$<$ cv\+::\+Point $>$ \mbox{\hyperlink{class_c_snake_game_v2_a631d95a523de26e32777974474d00db8}{\+\_\+lazer\+\_\+position}}
+\begin{DoxyCompactList}\small\item\em Positions of active lasers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_a5bbc9fe7071fd99bb008800a1ea64da5}\label{class_c_snake_game_v2_a5bbc9fe7071fd99bb008800a1ea64da5}} 
+std\+::deque$<$ cv\+::\+Point $>$ \mbox{\hyperlink{class_c_snake_game_v2_a5bbc9fe7071fd99bb008800a1ea64da5}{\+\_\+lazer\+\_\+direction}}
+\begin{DoxyCompactList}\small\item\em Directions of active lasers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_acf4b4c4d069e4ab6a3417d3317691adb}\label{class_c_snake_game_v2_acf4b4c4d069e4ab6a3417d3317691adb}} 
+cv\+::\+Mat \mbox{\hyperlink{class_c_snake_game_v2_acf4b4c4d069e4ab6a3417d3317691adb}{\+\_\+bottom\+\_\+ship}}
+\begin{DoxyCompactList}\small\item\em Image for bottom ship rendering. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_ab124168e5f6cc001fd80a9106e457910}\label{class_c_snake_game_v2_ab124168e5f6cc001fd80a9106e457910}} 
+cv\+::\+Mat \mbox{\hyperlink{class_c_snake_game_v2_ab124168e5f6cc001fd80a9106e457910}{\+\_\+right\+\_\+ship}}
+\begin{DoxyCompactList}\small\item\em Image for right ship rendering. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_a2e61a718581d61413abc38ed0f7ffacd}\label{class_c_snake_game_v2_a2e61a718581d61413abc38ed0f7ffacd}} 
+bool \mbox{\hyperlink{class_c_snake_game_v2_a2e61a718581d61413abc38ed0f7ffacd}{\+\_\+reset\+\_\+done}}
+\begin{DoxyCompactList}\small\item\em Flag indicating if reset is completed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_a3e1a7e403db6aaa45dd269eb7d572258}\label{class_c_snake_game_v2_a3e1a7e403db6aaa45dd269eb7d572258}} 
+bool \mbox{\hyperlink{class_c_snake_game_v2_a3e1a7e403db6aaa45dd269eb7d572258}{\+\_\+lazer\+\_\+firing}}
+\begin{DoxyCompactList}\small\item\em Flag for laser firing state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_ad0825995ce1fed380bb9005a92b86fe1}\label{class_c_snake_game_v2_ad0825995ce1fed380bb9005a92b86fe1}} 
+bool \mbox{\hyperlink{class_c_snake_game_v2_ad0825995ce1fed380bb9005a92b86fe1}{\+\_\+lazer\+\_\+drawn}}
+\begin{DoxyCompactList}\small\item\em Flag to track if laser has been drawn. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_ae0a8c56a2f5678d20aba4536f80d1160}\label{class_c_snake_game_v2_ae0a8c56a2f5678d20aba4536f80d1160}} 
+bool \mbox{\hyperlink{class_c_snake_game_v2_ae0a8c56a2f5678d20aba4536f80d1160}{\+\_\+apple\+\_\+movement}}
+\begin{DoxyCompactList}\small\item\em Flag to indicate apple movement state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_a0dbcc70ab982eed42bca91296bd08cbb}\label{class_c_snake_game_v2_a0dbcc70ab982eed42bca91296bd08cbb}} 
+bool \mbox{\hyperlink{class_c_snake_game_v2_a0dbcc70ab982eed42bca91296bd08cbb}{\+\_\+lazer\+\_\+on}}
+\begin{DoxyCompactList}\small\item\em Flag to indicate if the laser is active. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_snake_game_v2_a5c2798e38cc6ecc89366b1456706a972}\label{class_c_snake_game_v2_a5c2798e38cc6ecc89366b1456706a972}} 
+std\+::array$<$ cv\+::\+Scalar, 100 $>$ \mbox{\hyperlink{class_c_snake_game_v2_a5c2798e38cc6ecc89366b1456706a972}{\+\_\+rainbow}}
+\begin{DoxyCompactList}\small\item\em Array storing rainbow color gradients. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+A class representing the Snake game, extending the \mbox{\hyperlink{class_c_base4618}{CBase4618}} class. 
+
+This class handles the game logic, including rendering, user input (via GPIO and joystick), LED color synchronization, apple movement, and laser mechanics. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_c_snake_game_v2_acb1ba0c302144c94b529056149b51dea}\label{class_c_snake_game_v2_acb1ba0c302144c94b529056149b51dea}} 
@@ -125,33 +190,34 @@ cv\+::\+Rect {\bfseries \+\_\+snake\+\_\+hit\+\_\+box}
 
 
 
-Constructs the Snake game with a specified canvas size. 
+Constructor for \mbox{\hyperlink{class_c_snake_game_v2}{CSnake\+Game\+V2}}. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em size} & The size of the game canvas. \\
+{\em size} & The size of the game board. \\
 \hline
 \end{DoxyParams}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_c_snake_game_v2_a9a6f43cb71bc136df4e4b26c7ff6982d}\label{class_c_snake_game_v2_a9a6f43cb71bc136df4e4b26c7ff6982d}} 
-\index{CSnakeGameV2@{CSnakeGameV2}!gpio@{gpio}}
-\index{gpio@{gpio}!CSnakeGameV2@{CSnakeGameV2}}
-\doxysubsubsection{\texorpdfstring{gpio()}{gpio()}}
-{\footnotesize\ttfamily void CSnake\+Game\+V2\+::gpio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+\mbox{\Hypertarget{class_c_snake_game_v2_ab3e021e1a6172b96186edc50f39b2968}\label{class_c_snake_game_v2_ab3e021e1a6172b96186edc50f39b2968}} 
+\index{CSnakeGameV2@{CSnakeGameV2}!snake\_vector\_logic@{snake\_vector\_logic}}
+\index{snake\_vector\_logic@{snake\_vector\_logic}!CSnakeGameV2@{CSnakeGameV2}}
+\doxysubsubsection{\texorpdfstring{snake\_vector\_logic()}{snake\_vector\_logic()}}
+{\footnotesize\ttfamily void CSnake\+Game\+V2\+::snake\+\_\+vector\+\_\+logic (\begin{DoxyParamCaption}\item[{bool}]{apple\+\_\+flag }\end{DoxyParamCaption})}
 
 
 
-Handles GPIO operations such as button presses and LED updates. 
+Manages the logic of the snake\textquotesingle{}s movement and apple interactions. 
 
-This function is responsible for processing user input and syncing LED colors. 
 
-Implements \mbox{\hyperlink{class_c_base4618_a8d55ae2f3ce30021775565dc895b8b12}{CBase4618}}.
-
+\begin{DoxyParams}{Parameters}
+{\em apple\+\_\+flag} & Determines whether the apple has been eaten. \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-CSnake\+Game\+V2.\+h\item 
+\mbox{\hyperlink{_c_snake_game_v2_8h}{CSnake\+Game\+V2.\+h}}\item 
 CSnake\+Game\+V2.\+cpp\end{DoxyCompactItemize}
