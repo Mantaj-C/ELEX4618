@@ -26,6 +26,7 @@
 #include "CBase4618.h"
 #include "CSnakeGame.h"
 #include "CSnakeGameV2.h"
+#include "CAsteroidGame.h"
 
 
 // Must include Windows.h after Winsock2.h, so Serial must be included after Client/Server
@@ -495,6 +496,8 @@ void lab5()
 ////////////////////////////////////////////////////////////////
 void lab6()
 {
+   CAsteroidGame asteroidgame(cv::Size(SNAKEGAME_CANVAS_WIDTH, SNAKEGAME_CANVAS_HEIGHT));
+   asteroidgame.runMT();
 }
 
 void print_menu()
