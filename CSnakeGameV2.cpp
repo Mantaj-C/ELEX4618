@@ -271,6 +271,14 @@ void CSnakeGameV2::draw() {
          _apple_movement = !_apple_movement;
          std::cout << "Apple Movement: " << std::to_string(_apple_movement) << std::endl;
          }
+      if (_lazer_on)
+         cv::circle(canvas, cv::Point(77, 190), 6, cv::Scalar(0, 255, 0), cv::FILLED);
+      else 
+         cv::circle(canvas, cv::Point(77, 190), 6, cv::Scalar(0, 0, 255), cv::FILLED);
+      if (_apple_movement)
+         cv::circle(canvas, cv::Point(192, 190), 6, cv::Scalar(0, 255, 0), cv::FILLED);
+      else
+         cv::circle(canvas, cv::Point(192, 190), 6, cv::Scalar(0, 0, 255), cv::FILLED);
       if (!_game_over) {
          int rainbow_index = 3*_frameCount;
          for (int i = 0; i < _snake_position.size(); i += 5) {
