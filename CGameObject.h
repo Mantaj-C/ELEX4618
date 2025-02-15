@@ -7,6 +7,7 @@ protected:
    cv::Point2f _velocity;
    int _radius;
    int _lives;
+   int _tilt;
 public:
    void move();
    bool collide(CGameObject& obj);
@@ -16,5 +17,8 @@ public:
    void set_lives(int lives) { _lives = lives; }
    void set_pos(Point2f pos) { _position = pos; }
    cv::Point2f get_pos() { return _position; }
-   void draw(cv::Mat& im,int linetype);
+   int get_tilt() { return _tilt; }
+   void set_tilt(int tilt) { _tilt = tilt; }
+   void draw(cv::Mat& im);
+   float distance_squared(cv::Point a, cv::Point b);
    };
