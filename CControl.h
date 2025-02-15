@@ -123,4 +123,6 @@ public:
     * Searches for available COM ports and establishes a connection.
     */
    void auto_connect();
+
+   bool get_button_hold(int channel, int& result);
    };
