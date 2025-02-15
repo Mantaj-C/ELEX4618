@@ -21,21 +21,20 @@ bool CGameObject::collide(CGameObject& obj) {
    }
 
 bool CGameObject::collide_wall(cv::Size board) {
-   cv::Point2f closest_point = cv::Point2f(std::clamp(_position.x, 0, board.width),
-      std::clamp(_position.y, 0, board.height)); //ChatGPT partially
-   float squared_distance = distance_squared(_position,closest_point);
-
-   if ((_radius * _radius) >= squared_distance)
+   if ((_position.x + _radius) < 0 ||
+      (_position.x - _radius) > board.width ||
+      (_position.y + _radius) < 0 ||
+      (_position.y - _radius) > board.height)
       return true;
    else
       return false;
    }
 
 void CGameObject::draw(cv::Mat& im) {
-   cv::circle(im, _position, _radius, cv::Scalar(0,0,255));
+   cv::circle(im, _position, _radius, cv::Scalar(0,0,255),2);
    }
 
-float CGameObject::distance_squared(cv::Point a, cv::Point b) {
+float CGameObject::distance_squared(cv::Point2f a, cv::Point2f b) {
    float delta_x = a.x - b.x;
    float delta_y = a.y - b.y;
    return (delta_x * delta_x) + (delta_y * delta_y);

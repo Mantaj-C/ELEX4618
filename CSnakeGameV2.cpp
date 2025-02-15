@@ -1,4 +1,3 @@
-#define CVUI_IMPLEMENTATION
 #include "stdafx.h"
 #include "cvui.h"
 #include "CSnakeGameV2.h"

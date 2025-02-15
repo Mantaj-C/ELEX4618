@@ -7,6 +7,7 @@
 #include <sstream>
 #include <cctype>
 #include <regex>
+#include <unordered_map>
 
 #define MAX_ANALOG 4096.0
 #define JOYSTICK_X 2
@@ -290,5 +291,35 @@ string CControl::valid_char() {
          return user_input;
          }
       cout << "Invalid input\n";
+      }
+   }
+
+bool CControl::get_button_hold(int channel, int& result) {
+   static std::unordered_map<int, double> last_hold_time;
+   double current_time = cv::getTickCount() / cv::getTickFrequency();
+
+   int current_state;
+   get_data(DIGITAL, channel, current_state);
+
+   // If pressed
+   if (current_state == 0) {
+      // Only consider the button "held" if it has been pressed for at least 0.02 seconds.
+      if ((current_time - last_hold_time[channel]) > 0.02) {
+         result = 1;
+         // Update the time each frame if desired,
+         // or only update once on the initial press.
+         last_hold_time[channel] = current_time;
+         return true;
+         }
+      else {
+         result = 0;
+         return false;
+         }
+      }
+   else {
+      // Reset the timer if button is released.
+      last_hold_time[channel] = current_time;
+      result = 0;
+      return false;
       }
    }

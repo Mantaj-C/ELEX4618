@@ -1,10 +1,11 @@
+#include "stdafx.h"
 #include "CAsteroid.h"
 #include <random>
 
-#define MAX_RADIUS 50
-#define MIN_RADIUS 5
-#define VELOCITY 5
-#define VELOCITY_OFFSET 15
+#define MAX_RADIUS 70
+#define MIN_RADIUS 15
+#define VELOCITY 3
+#define VELOCITY_OFFSET 25
 
 enum { TOP_SCREEN = 0, LEFT_SCREEN, BOTTOM_SCREEN, RIGHT_SCREEN };
 
@@ -13,9 +14,7 @@ CAsteroid::CAsteroid(cv::Size size) {
    std::mt19937 engine(rd()); //ChaptGPT
    std::uniform_int_distribution<int> distribution1(MIN_RADIUS, MAX_RADIUS); //ChatGPT
    _radius = distribution1(engine);
-   if (_radius >= (MAX_RADIUS * (2 / 3)))
-      _lives = 3;
-   else if (_radius >= (MAX_RADIUS / 3))
+   if (_radius >= (MAX_RADIUS - MIN_RADIUS))
       _lives = 2;
    else
       _lives = 1;
@@ -27,7 +26,7 @@ CAsteroid::CAsteroid(cv::Size size) {
       if (area_select == TOP_SCREEN)
          _position = cv::Point2f(distribution3(engine), -_radius + 2);
       else
-         _position = cv::Point2f(distribution3(engine), _size.height + _radius - 2);
+         _position = cv::Point2f(distribution3(engine), size.height + _radius - 2);
       }
    else {
       std::uniform_int_distribution<int> distribution4(0, size.height);
@@ -36,11 +35,12 @@ CAsteroid::CAsteroid(cv::Size size) {
       else 
          _position = cv::Point2f(size.width + _radius - 2, distribution4(engine));
       }
-
-   float velocity_magnitude = std::sqrt(distance_squared(0, _position));
-   cv::Point2f velocity_direct = VELOCITY * -_position / velocity_magnitude;
+   cv::Point2f center(500, 400);
+   cv::Point2f direction = center - _position;
+   float velocity_magnitude = std::sqrt(distance_squared(center, _position));
+   cv::Point2f velocity_direct = VELOCITY * direction / velocity_magnitude;
    std::uniform_int_distribution<int> distribution5(-VELOCITY_OFFSET, VELOCITY_OFFSET);
-   float angle = distribution2(engine) * CV_PI / 180;
+   float angle = distribution5(engine) * CV_PI / 180;
    _velocity.x = velocity_direct.x * std::cos(angle) - velocity_direct.y * std::sin(angle);
    _velocity.y = velocity_direct.x * std::sin(angle) + velocity_direct.y * std::cos(angle);
    }

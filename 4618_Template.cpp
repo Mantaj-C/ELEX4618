@@ -26,6 +26,7 @@
 #include "CBase4618.h"
 #include "CSnakeGame.h"
 #include "CSnakeGameV2.h"
+#include "CGameObject.h"
 #include "CAsteroidGame.h"
 
 
