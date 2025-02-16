@@ -2,7 +2,7 @@
 #include "CShip.h"
 #include <cmath>
 
-#define TILT_SPEED 5
+#define TILT_SPEED 7
 #define VELOCITY 5
 #define DEACCELERATION_SPEED 0.5
 #define SHIP_SCALING 1.0

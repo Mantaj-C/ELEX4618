@@ -338,7 +338,7 @@ void lab1()
         print_menu2();
         std::cout << "CMD>";
         std::cin >> userin;
-
+        
         if (userin == 'A' || userin == 'a') {
             add_product(products);
         }

@@ -56,19 +56,21 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_DEPRECATE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\opencv\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_DEPRECATE;_HAS_STD_BYTE=0;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\opencv\include;C:\Users\manta\Downloads\ELEX4618\SFML-3.0.0\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\manta\Downloads\ELEX4618\opencv\x64\vc17\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\manta\Downloads\ELEX4618\opencv\x64\vc17\lib;C:\Users\manta\Downloads\ELEX4618\SFML-3.0.0\lib</AdditionalLibraryDirectories>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);winmm.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);winmm.lib;sfml-graphics.lib;
+sfml-window.lib
+;sfml-system.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -97,6 +99,7 @@
     <ClInclude Include="CControl.h" />
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="CGrocery.h" />
+    <ClInclude Include="CInvader.h" />
     <ClInclude Include="CMissile.h" />
     <ClInclude Include="CProduct.h" />
     <ClInclude Include="CShip.h" />
@@ -115,6 +118,7 @@
     <ClCompile Include="CControl.cpp" />
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="CGrocery.cpp" />
+    <ClCompile Include="CInvader.cpp" />
     <ClCompile Include="CMissile.cpp" />
     <ClCompile Include="CProduct.cpp" />
     <ClCompile Include="CShip.cpp" />

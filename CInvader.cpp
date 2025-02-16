@@ -1,24 +1,17 @@
 #include "stdafx.h"
-#include "CAsteroid.h"
+#include "CInvader.h"
 #include <random>
 
-#define MAX_RADIUS 70
-#define MIN_RADIUS 15
 #define VELOCITY 3
 #define VELOCITY_OFFSET 25
 
 enum { TOP_SCREEN = 0, LEFT_SCREEN, BOTTOM_SCREEN, RIGHT_SCREEN };
 
-CAsteroid::CAsteroid(cv::Size size) {
+CInvader::CInvader(cv::Size size) {
    std::random_device rd; //ChatGPT
    std::mt19937 engine(rd()); //ChaptGPT
-   std::uniform_int_distribution<int> distribution1(MIN_RADIUS, MAX_RADIUS); //ChatGPT
-   _radius = distribution1(engine);
-   //if (_radius >= (MAX_RADIUS - MIN_RADIUS))
-      //_lives = 2;
-   //else
-      _lives = 1;
-
+   _radius = 20;
+   _lives = 1;
    std::uniform_int_distribution<int> distribution2(TOP_SCREEN, RIGHT_SCREEN);
    int area_select = distribution2(engine);
    if (area_select == TOP_SCREEN || area_select == BOTTOM_SCREEN) {
@@ -32,7 +25,7 @@ CAsteroid::CAsteroid(cv::Size size) {
       std::uniform_int_distribution<int> distribution4(0, size.height);
       if (area_select == LEFT_SCREEN)
          _position = cv::Point2f(-_radius + 2, distribution4(engine));
-      else 
+      else
          _position = cv::Point2f(size.width + _radius - 2, distribution4(engine));
       }
    cv::Point2f center(500, 400);
@@ -45,6 +38,14 @@ CAsteroid::CAsteroid(cv::Size size) {
    _velocity.y = velocity_direct.x * std::sin(angle) + velocity_direct.y * std::cos(angle);
    }
 
-CAsteroid::~CAsteroid() {
+CInvader::~CInvader() {
 
+   }
+
+void CInvader::draw(cv::Mat& im) {
+   cv::line(im, _position, _position + cv::Point2f(10, -30), cv::Scalar(0, 255, 0), 2);
+   cv::line(im, _position, _position + cv::Point2f(-10, -30), cv::Scalar(0, 255, 0), 2);
+   cv::circle(im, _position, _radius, cv::Scalar(0, 255, 0), cv::FILLED);
+   cv::circle(im, _position + cv::Point2f(10, -10), 3, cv::Scalar(0, 0, 0), cv::FILLED);
+   cv::circle(im, _position + cv::Point2f(-10, -10), 3, cv::Scalar(0, 0, 0), cv::FILLED);
    }

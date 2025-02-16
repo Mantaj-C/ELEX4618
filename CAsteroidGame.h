@@ -6,6 +6,10 @@
 #include "CShip.h"
 #include "CMissile.h"
 #include "CAsteroid.h"
+#include "CInvader.h"
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 #include <deque>
 #include <chrono>
 #include <thread>
@@ -21,6 +25,8 @@ private:
    CShip _ship_lives_image;
    std::deque<CAsteroid> _asteroids;
    std::deque<CMissile> _missiles;
+   std::deque<CInvader> _invaders;
+   std::deque<CMissile> _invaders_missiles;
    bool _reset;
    bool _button_pressed;
    bool _game_over;
@@ -28,6 +34,8 @@ private:
    int _frameCount;
    double _lastTime_frame;
    double _lastTime_asteroid;
+   double _lastTime_invader;
+   double _lastTime_invader_fire;
    int _score;
    float _joystick_position;
    int _update_time;
@@ -37,6 +45,8 @@ private:
    bool _thrusters;
    bool _hyperspace;
    std::mutex _missiles_mutex;
+   bool _controller;
+   std::deque<bool> _button_states;
 
 public:
    CAsteroidGame(cv::Size size);
