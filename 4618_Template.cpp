@@ -28,6 +28,7 @@
 #include "CSnakeGameV2.h"
 #include "CGameObject.h"
 #include "CAsteroidGame.h"
+#include "CBrickBreaker.h"
 
 
 // Must include Windows.h after Winsock2.h, so Serial must be included after Client/Server
@@ -497,8 +498,20 @@ void lab5()
 ////////////////////////////////////////////////////////////////
 void lab6()
 {
-   CAsteroidGame asteroidgame(cv::Size(SNAKEGAME_CANVAS_WIDTH, SNAKEGAME_CANVAS_HEIGHT));
-   asteroidgame.runMT();
+   char userin;
+   std::cout << "(1) Asteroid Game" << std::endl;
+   std::cout << "(2) Brick Breaker" << std::endl;
+   std::cout << "CMD>";
+   std::cin >> userin;
+   if (userin == '1') {
+      CAsteroidGame asteroidgame(cv::Size(SNAKEGAME_CANVAS_WIDTH, SNAKEGAME_CANVAS_HEIGHT));
+      asteroidgame.runMT();
+      }
+   else {
+      CBrickBreaker brickbreaker(cv::Size(SNAKEGAME_CANVAS_WIDTH, SNAKEGAME_CANVAS_HEIGHT));
+      brickbreaker.runMT();
+      }
+      
 }
 
 void print_menu()

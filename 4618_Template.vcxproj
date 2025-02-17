@@ -57,7 +57,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_DEPRECATE;_HAS_STD_BYTE=0;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\opencv\include;C:\Users\manta\Downloads\ELEX4618\SFML-3.0.0\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\opencv\include;C:\Users\manta\Downloads\ELEX4618\SFML-3.0.0\include;C:\Users\manta\Downloads\ELEX4618\box2d-2.4.2\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard_C>Default</LanguageStandard_C>
@@ -66,11 +66,11 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\manta\Downloads\ELEX4618\opencv\x64\vc17\lib;C:\Users\manta\Downloads\ELEX4618\SFML-3.0.0\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\manta\Downloads\ELEX4618\opencv\x64\vc17\lib;C:\Users\manta\Downloads\ELEX4618\SFML-3.0.0\lib;C:\Users\manta\Downloads\ELEX4618\box2d-2.4.2\build\bin\Debug</AdditionalLibraryDirectories>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);winmm.lib;sfml-graphics.lib;
 sfml-window.lib
-;sfml-system.lib</AdditionalDependencies>
+;sfml-system.lib;box2d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -95,12 +95,17 @@ sfml-window.lib
   <ItemGroup>
     <ClInclude Include="CAsteroid.h" />
     <ClInclude Include="CAsteroidGame.h" />
+    <ClInclude Include="CBall.h" />
     <ClInclude Include="CBase4618.h" />
+    <ClInclude Include="CBBObjects.h" />
+    <ClInclude Include="CBrickBreaker.h" />
+    <ClInclude Include="CBricks.h" />
     <ClInclude Include="CControl.h" />
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="CGrocery.h" />
     <ClInclude Include="CInvader.h" />
     <ClInclude Include="CMissile.h" />
+    <ClInclude Include="CPaddle.h" />
     <ClInclude Include="CProduct.h" />
     <ClInclude Include="CShip.h" />
     <ClInclude Include="CSnakeGame.h" />
@@ -114,12 +119,17 @@ sfml-window.lib
     <ClCompile Include="4618_Template.cpp" />
     <ClCompile Include="CAsteroid.cpp" />
     <ClCompile Include="CAsteroidGame.cpp" />
+    <ClCompile Include="CBall.cpp" />
     <ClCompile Include="CBase4618.cpp" />
+    <ClCompile Include="CBBObjects.cpp" />
+    <ClCompile Include="CBrickBreaker.cpp" />
+    <ClCompile Include="CBricks.cpp" />
     <ClCompile Include="CControl.cpp" />
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="CGrocery.cpp" />
     <ClCompile Include="CInvader.cpp" />
     <ClCompile Include="CMissile.cpp" />
+    <ClCompile Include="CPaddle.cpp" />
     <ClCompile Include="CProduct.cpp" />
     <ClCompile Include="CShip.cpp" />
     <ClCompile Include="CSnakeGame.cpp" />
