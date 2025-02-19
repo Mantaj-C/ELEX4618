@@ -34,6 +34,10 @@ void CGameObject::draw(cv::Mat& im) {
    cv::circle(im, _position, _radius, cv::Scalar(0,0,255),2);
    }
 
+void CGameObject::draw(cv::Mat& im,cv::Scalar color) {
+   cv::circle(im, _position, _radius, color, 2);
+   }
+
 float CGameObject::distance_squared(cv::Point2f a, cv::Point2f b) {
    float delta_x = a.x - b.x;
    float delta_y = a.y - b.y;

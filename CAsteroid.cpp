@@ -4,8 +4,10 @@
 
 #define MAX_RADIUS 70
 #define MIN_RADIUS 15
-#define VELOCITY 3
+#define VELOCITY 3.5
 #define VELOCITY_OFFSET 25
+#define SPIN_SPEED 1
+#define SCALE_FACTOR 1.2
 
 enum { TOP_SCREEN = 0, LEFT_SCREEN, BOTTOM_SCREEN, RIGHT_SCREEN };
 
@@ -18,6 +20,7 @@ CAsteroid::CAsteroid(cv::Size size) {
       //_lives = 2;
    //else
       _lives = 1;
+      _angle = 0.0;
 
    std::uniform_int_distribution<int> distribution2(TOP_SCREEN, RIGHT_SCREEN);
    int area_select = distribution2(engine);
@@ -46,5 +49,84 @@ CAsteroid::CAsteroid(cv::Size size) {
    }
 
 CAsteroid::~CAsteroid() {
+     }
 
+CAsteroid::CAsteroid(cv::Point2f position, cv::Point2f velocity, int radius) {
+   _radius = radius;
+   _position = position;
+   _velocity = velocity;
+   _lives = 1;
+   _angle = 0.0;
    }
+///////////////////////////////////////////////////////////////////////////ChatGPT
+void CAsteroid::draw(cv::Mat& im, cv::Mat& aster) {
+   // Increment the angle.
+   _angle += SPIN_SPEED;
+   if (_angle >= 360.0f)
+      _angle -= 360.0f;
+
+   // Ensure _radius is positive.
+   if (_radius <= 0)
+      return;
+
+   // Calculate the new drawn size using the scaling factor.
+   int drawSize = static_cast<int>(2 * _radius * SCALE_FACTOR);
+
+   // 1. Resize the asteroid texture to a square of size drawSize.
+   cv::Mat resized;
+   cv::resize(aster, resized, cv::Size(drawSize, drawSize));
+   if (resized.empty())
+      return;
+
+   // 2. Determine the center of the resized image.
+   cv::Point2f center(static_cast<float>(resized.cols) / 2.0f,
+      static_cast<float>(resized.rows) / 2.0f);
+
+   // 3. Get the rotation matrix around the center.
+   cv::Mat rotMat = cv::getRotationMatrix2D(center, _angle, 1.0);
+
+   // 4. Rotate the resized image.
+   cv::Mat rotated;
+   cv::warpAffine(resized, rotated, rotMat, resized.size(),
+      cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar(0, 0, 0, 0));
+
+   // 5. Compute the destination rectangle so that the rotated image is centered at _position.
+   int left = static_cast<int>(_position.x - rotated.cols / 2);
+   int top = static_cast<int>(_position.y - rotated.rows / 2);
+   cv::Rect desiredRect(left, top, rotated.cols, rotated.rows);
+
+   // 6. The full canvas rectangle.
+   cv::Rect imageRect(0, 0, im.cols, im.rows);
+
+   // 7. Compute the intersection (overlap) of desiredRect and the canvas.
+   cv::Rect drawRect = desiredRect & imageRect;
+   if (drawRect.empty())
+      return;
+
+   // 8. Compute the corresponding sub-rectangle from the rotated image.
+   int offsetX = drawRect.x - desiredRect.x;
+   int offsetY = drawRect.y - desiredRect.y;
+   cv::Rect textureROI(offsetX, offsetY, drawRect.width, drawRect.height);
+   textureROI = textureROI & cv::Rect(0, 0, rotated.cols, rotated.rows);
+   if (textureROI.empty())
+      return;
+
+   cv::Mat subSrc = rotated(textureROI);
+   cv::Mat subDst = im(drawRect);
+
+   // 9. Perform alpha blending if the rotated image has an alpha channel.
+   if (rotated.channels() == 4) {
+      std::vector<cv::Mat> channels;
+      cv::split(subSrc, channels);
+      cv::Mat alpha = channels[3];
+      channels.pop_back();
+      cv::Mat color;
+      cv::merge(channels, color);
+      color.copyTo(subDst, alpha);
+      }
+   else {
+      // Otherwise, just copy the pixels.
+      subSrc.copyTo(subDst);
+      }
+}
+//////////////////////////////////////////////////////////////////////////////

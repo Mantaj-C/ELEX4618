@@ -47,6 +47,7 @@ private:
    std::mutex _missiles_mutex;
    bool _controller;
    std::deque<bool> _button_states;
+   cv::Mat _asteroid_image;
 
 public:
    CAsteroidGame(cv::Size size);
@@ -55,4 +56,5 @@ public:
    void update() override;
    void draw() override;
    void reset();
+   void mini_asteroid_spawn(cv::Point2f postition, cv::Point2f velocity);
    };

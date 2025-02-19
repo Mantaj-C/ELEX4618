@@ -141,6 +141,12 @@ sfml-window.lib
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Asteroid_Game_Background.jpg" />
+    <Image Include="Asteroid_Game_Over.jpg" />
+    <Image Include="Asteroid_image.jpg" />
+    <Image Include="Asteroid_image.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

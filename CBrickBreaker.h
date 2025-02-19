@@ -40,6 +40,7 @@ private:
    std::array<cv::Scalar, 100> _rainbow;
    int level;
    int _rainbow_select;
+   bool _brick_hit;
 
 public:
    CBrickBreaker(cv::Size size);

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CAsteroidGame.h"
 #include "cvui.h"
+#include <cmath>
 
 #define GAME_NAME "Mantaj Chauhan Asteroid Game"
 #define SWITCH_1 33
@@ -45,7 +46,10 @@ CAsteroidGame::CAsteroidGame(cv::Size size) : _ship(size), _size(size),
       _controller = false;
    _button_states.push_back(false);
    _button_states.push_back(false);
-   setCanvas(cv::Mat::zeros(size, CV_8UC3));
+   _asteroid_image = cv::imread("Asteroid_image.png", cv::IMREAD_UNCHANGED);
+   if (_asteroid_image.empty()) {
+      _asteroid_image = cv::Mat::zeros(150,150, CV_8UC3); // Black placeholder image
+      }
    cvui::init(GAME_NAME);
    }
 
@@ -115,14 +119,16 @@ void CAsteroidGame::update() {
       if (currentTime - _lastTime_asteroid >= ASTEROID_RATE) {
          CAsteroid asteroid(_size);
          _asteroids.push_back(asteroid);
-         std::cout << "Asteroid Spawned" << std::endl;
+         if (!_game_over)
+            std::cout << "Asteroid Spawned" << std::endl;
          _lastTime_asteroid = currentTime;
          }
 
       if (currentTime - _lastTime_invader >= INVADER_RATE) {
          CInvader invader(_size);
          _invaders.push_back(invader);
-         std::cout << "Invader Spawned" << std::endl;
+         if (!_game_over)
+            std::cout << "Invader Spawned" << std::endl;
          _lastTime_invader = currentTime;
          }
 
@@ -131,9 +137,10 @@ void CAsteroidGame::update() {
          std::mt19937 engine(rd()); //ChaptGPT
          std::uniform_int_distribution<int> distribution2(0, _invaders.size() - 1);
          int invader_select = distribution2(engine);
-         CMissile missile(_ship.get_pos(), _invaders[invader_select].get_pos(),3.7);
+         CMissile missile(_ship.get_pos(), _invaders[invader_select].get_pos(),4.3);
          _invaders_missiles.push_back(missile);
-         std::cout << "Invader Missiles Fired" << std::endl;
+         if (!_game_over)
+            std::cout << "Invader Missiles Fired" << std::endl;
          _lastTime_invader_fire = currentTime;
          }
 
@@ -183,7 +190,8 @@ void CAsteroidGame::update() {
             if (_asteroids[i].collide(_missiles[j])) {
                _asteroids[i].hit();
                _missiles[j].hit();
-               _score += SCORE_INCREMENT;
+               if (!_game_over)
+                  _score += SCORE_INCREMENT;
                }
 
             // If missile is dead, remove it and do not increment j.
@@ -196,6 +204,9 @@ void CAsteroidGame::update() {
 
          // If this asteroid is dead, erase it and do not increment i.
          if (_asteroids[i].get_lives() <= 0) {
+            if (_asteroids[i].get_radius() >= 45) {
+               mini_asteroid_spawn(_asteroids[i].get_pos(), _asteroids[i].get_vel());
+               }
             _asteroids.erase(_asteroids.begin() + i);
             continue;
             }
@@ -231,7 +242,8 @@ void CAsteroidGame::update() {
             if (_invaders[k].collide(_missiles[j])) {
                _invaders[k].hit();
                _missiles[j].hit();
-               _score += SCORE_INCREMENT;
+               if (!_game_over)
+                  _score += SCORE_INCREMENT;
                }
 
             if (_missiles[j].collide_wall(_size))
@@ -281,8 +293,8 @@ void CAsteroidGame::update() {
       if (_missile_fire) {
          CMissile missile(_ship.get_shape(TIP) + _ship.get_pos(), _ship.get_shape(NOTCH) + _ship.get_pos());
          _missiles.push_back(missile);
-
-         std::cout << "Missles Fired" << std::endl;
+         if (!_game_over)
+            std::cout << "Missles Fired" << std::endl;
          _missile_fire = false;
          }
       //////////////////////////////////////////////////////////////ChatGPT
@@ -301,8 +313,21 @@ void CAsteroidGame::draw() {
    while (!getExit()) {
       auto draw_start = std::chrono::steady_clock::now(); ////ChatGPT
       _frameCount++;
-      cv::Point2f lives_display_starting_pos = cv::Point2f(200, 50);
-      setCanvas(cv::Mat::zeros(_size, CV_8UC3));
+      cv::Point2f lives_display_starting_pos = cv::Point2f(200, 50);;
+      if (!_game_over) {
+         cv::Mat frame = cv::imread("Asteroid_Game_Background.jpg");
+         if (frame.empty()) {
+            cv::Mat frame = cv::Mat::zeros(_size, CV_8UC3); // Black placeholder image
+            }
+         setCanvas(frame);
+         }
+      if (_game_over) {
+         cv::Mat frame = cv::imread("Asteroid_Game_Over.jpg");
+         if (frame.empty()) {
+            cv::Mat frame = cv::Mat::zeros(_size, CV_8UC3); // Black placeholder image
+            }
+         setCanvas(frame);
+         }
       cv::Mat& canvas = getCanvas();
       cvui::window(canvas, 10, 10, 150, 60,
          "FPS = " + std::to_string(std::round(_FPS * 100) / 100));
@@ -313,27 +338,25 @@ void CAsteroidGame::draw() {
          setExit(true);
          }
       if (_game_over) {
-         cv::putText(canvas, "Your Score: " + std::to_string(_score), cv::Point2f(200, 200), cv::FONT_HERSHEY_SIMPLEX,
-            3.0, cv::Scalar(255, 0, 0), 2, cv::LINE_AA);
-         cv::putText(canvas, "GAME OVER", cv::Point2f(200, 300), cv::FONT_HERSHEY_SIMPLEX,
-            3.0, cv::Scalar(255, 0, 0), 2, cv::LINE_AA);
+         cv::putText(canvas, "Your Score:" + std::to_string(_score), cv::Point2f(150, 600), cv::FONT_HERSHEY_SIMPLEX,
+            3.0, cv::Scalar(0, 0, 255), 3, cv::LINE_AA);
          }
       else {
       for (int i = 0; i < _ship.get_lives(); i++) {
          _ship_lives_image.draw(canvas, lives_display_starting_pos + (i * cv::Point2f(50, 0)));
          }
-      cv::putText(canvas, "Score: " + std::to_string(_score), cv::Point2f(800, 50), cv::FONT_HERSHEY_SIMPLEX,
-         1.0, cv::Scalar(255, 0, 0), 2, cv::LINE_AA);
+      cv::putText(canvas, "Score:" + std::to_string(_score), cv::Point2f(800, 50), cv::FONT_HERSHEY_SIMPLEX,
+         1.0, cv::Scalar(0, 0, 255), 2, cv::LINE_AA);
 
       _ship.draw(canvas);
       for (int i = 0; i <_asteroids.size(); i++)
-         _asteroids[i].draw(canvas);
+         _asteroids[i].draw(canvas, _asteroid_image);
       for (int i = 0; i < _missiles.size(); i++)
          _missiles[i].draw(canvas);
       for (int i = 0; i < _invaders.size(); i++)
          _invaders[i].draw(canvas);
       for (int i = 0; i < _invaders_missiles.size(); i++)
-         _invaders_missiles[i].draw(canvas);
+         _invaders_missiles[i].draw(canvas,cv::Scalar(0,255,0));
          }
       
 
@@ -355,6 +378,11 @@ void CAsteroidGame::draw() {
    }
 
 void CAsteroidGame::reset() {
+   cv::Mat frame = cv::imread("Asteroid_Game_Background.jpg");
+   if (frame.empty()) {
+      cv::Mat frame = cv::Mat::zeros(_size, CV_8UC3); // Black placeholder image
+      }
+   setCanvas(frame);
    _ship = CShip(_size);
    _score = 0;
    _button_pressed = false;
@@ -370,4 +398,18 @@ void CAsteroidGame::reset() {
    std::cout << "game reset" << std::endl;
    _game_over = false;
    _reset = false;
+   }
+
+void CAsteroidGame::mini_asteroid_spawn(cv::Point2f postition, cv::Point2f velocity) {
+   float radians = 45 * CV_PI / 180.0f;
+   float cosA = std::cos(radians);
+   float sinA = std::sin(radians);
+   cv::Point2f temp_velocity1 = cv::Point2f(velocity.x * cosA - velocity.y * sinA,
+      velocity.x * sinA + velocity.y * cosA);
+   cv::Point2f temp_velocity2 = cv::Point2f(velocity.x * cosA - velocity.y * -sinA,
+      velocity.x * -sinA + velocity.y * cosA);
+   CAsteroid mini_asteroid1(postition + (3*temp_velocity1), temp_velocity1, 25);
+   CAsteroid mini_asteroid2(postition + (3*temp_velocity2), temp_velocity2, 25);
+   _asteroids.push_back(mini_asteroid1);
+   _asteroids.push_back(mini_asteroid2);
    }

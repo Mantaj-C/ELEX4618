@@ -41,7 +41,6 @@ bool CBall::collide_brick(CBBObjects& obj) {
 
    if (overlap) {
       // Basic bounce: simply invert the velocity.
-      _velocity = -_velocity;
       return true;
       }
    return false;

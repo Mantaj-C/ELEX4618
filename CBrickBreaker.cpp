@@ -19,7 +19,7 @@ enum { DIGITAL = 0, ANALOG, SERVO };
 enum { LEFT = -1, NO, RIGHT };
 
 CBrickBreaker::CBrickBreaker(cv::Size size) : _ball(size), _size(size), _controller(false), 
-_paddle(size), _button_state(false), level(1) {
+_paddle(size), _button_state(false), level(1), _brick_hit(false) {
    _reset = false;
    _game_over = false;
    _FPS = 0.0f;
@@ -112,9 +112,15 @@ void CBrickBreaker::update() {
             _ball.hit();
          for (int i = 0; i < _bricks.size(); i++) {
             if (_ball.collide_brick(_bricks[i])) {
+               _brick_hit = true;
                _score += SCORE_INCREMENT;
                _bricks[i].hit();
                }
+            }
+         if (_brick_hit) {
+            cv::Point2f temp_velocity = _ball.get_vel();
+            _ball.set_vel(temp_velocity * -1);
+            _brick_hit = false;
             }
          }
 
