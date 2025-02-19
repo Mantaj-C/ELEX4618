@@ -177,6 +177,7 @@ void CAsteroidGame::update() {
             _ship.hit();
             if (_ship.get_lives() <= 0)
                _game_over = true;
+            std::cout << "game over" << std::endl;
             _asteroids[i].hit();
             }
 
@@ -229,6 +230,7 @@ void CAsteroidGame::update() {
             _ship.hit();
             if (_ship.get_lives() <= 0)
                _game_over = true;
+            std::cout << "game over" << std::endl;
             _invaders[k].hit();
             }
 

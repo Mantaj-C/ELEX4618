@@ -69,41 +69,40 @@ void CAsteroid::draw(cv::Mat& im, cv::Mat& aster) {
    if (_radius <= 0)
       return;
 
-   // Calculate the new drawn size using the scaling factor.
+   // Calculate the drawn size using the scaling factor.
    int drawSize = static_cast<int>(2 * _radius * SCALE_FACTOR);
 
-   // 1. Resize the asteroid texture to a square of size drawSize.
-   cv::Mat resized;
-   cv::resize(aster, resized, cv::Size(drawSize, drawSize));
-   if (resized.empty())
+   // Cache the resized asteroid texture if not already cached or if the size has changed.
+   if (_cachedResized.empty() || _cachedResized.cols != drawSize || _cachedResized.rows != drawSize) {
+      cv::resize(aster, _cachedResized, cv::Size(drawSize, drawSize));
+      }
+   if (_cachedResized.empty())
       return;
 
-   // 2. Determine the center of the resized image.
-   cv::Point2f center(static_cast<float>(resized.cols) / 2.0f,
-      static_cast<float>(resized.rows) / 2.0f);
+   // Determine the center of the cached image.
+   cv::Point2f center(static_cast<float>(_cachedResized.cols) / 2.0f,
+      static_cast<float>(_cachedResized.rows) / 2.0f);
 
-   // 3. Get the rotation matrix around the center.
+   // Get the rotation matrix around the center.
    cv::Mat rotMat = cv::getRotationMatrix2D(center, _angle, 1.0);
 
-   // 4. Rotate the resized image.
+   // Rotate the cached image.
    cv::Mat rotated;
-   cv::warpAffine(resized, rotated, rotMat, resized.size(),
+   cv::warpAffine(_cachedResized, rotated, rotMat, _cachedResized.size(),
       cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar(0, 0, 0, 0));
 
-   // 5. Compute the destination rectangle so that the rotated image is centered at _position.
+   // Compute the destination rectangle so that the rotated image is centered at _position.
    int left = static_cast<int>(_position.x - rotated.cols / 2);
    int top = static_cast<int>(_position.y - rotated.rows / 2);
    cv::Rect desiredRect(left, top, rotated.cols, rotated.rows);
 
-   // 6. The full canvas rectangle.
+   // Compute the intersection between the desired rect and the canvas.
    cv::Rect imageRect(0, 0, im.cols, im.rows);
-
-   // 7. Compute the intersection (overlap) of desiredRect and the canvas.
    cv::Rect drawRect = desiredRect & imageRect;
    if (drawRect.empty())
       return;
 
-   // 8. Compute the corresponding sub-rectangle from the rotated image.
+   // Compute the corresponding ROI in the rotated image.
    int offsetX = drawRect.x - desiredRect.x;
    int offsetY = drawRect.y - desiredRect.y;
    cv::Rect textureROI(offsetX, offsetY, drawRect.width, drawRect.height);
@@ -114,7 +113,7 @@ void CAsteroid::draw(cv::Mat& im, cv::Mat& aster) {
    cv::Mat subSrc = rotated(textureROI);
    cv::Mat subDst = im(drawRect);
 
-   // 9. Perform alpha blending if the rotated image has an alpha channel.
+   // Perform alpha blending if the rotated image has an alpha channel.
    if (rotated.channels() == 4) {
       std::vector<cv::Mat> channels;
       cv::split(subSrc, channels);
